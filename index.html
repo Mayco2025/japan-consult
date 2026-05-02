@@ -1,664 +1,730 @@
 <!DOCTYPE html>
 <html lang="am">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Japan Consultation | የጃፓን ምክርና ድጋፍ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-        :root{
-            --gold:#e8b84b;--gold2:#f5d060;
-            --bg:#07071a;--bg2:#0b0b22;--card:#0f0f2a;--card2:#131330;
-            --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.13);
-            --text:#ffffff;--sub:#b8c0d8;--dim:#7880a0;
-        }
-        html{scroll-behavior:smooth}
-        body{background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans Ethiopic',sans-serif;overflow-x:hidden}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Japan Consultation | የጃፓን ምክርና ድጋፍ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0a0a0f;
+  --ink2:#111118;
+  --ink3:#18181f;
+  --gold:#e8b84b;
+  --gold2:#f5d060;
+  --red:#d72638;
+  --white:#ffffff;
+  --off:#f0f0fa;
+  --muted:#8890b0;
+  --border:rgba(255,255,255,.07);
+  --border2:rgba(255,255,255,.12);
+}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--white);font-family:'Inter','Noto Sans Ethiopic',sans-serif;overflow-x:hidden}
 
-        /* ANIMATIONS */
-        @keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
-        @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(232,184,75,.2)}50%{box-shadow:0 0 50px rgba(232,184,75,.45)}}
-        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-        .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
-        .reveal.on{opacity:1;transform:none}
+/* --- ANIMATIONS --- */
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.r{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.r.v{opacity:1;transform:none}
 
-        /* NAV */
-        nav{
-            position:fixed;top:0;width:100%;z-index:300;
-            display:flex;justify-content:space-between;align-items:center;
-            padding:.9rem 2.5rem;
-            background:rgba(7,7,26,.9);backdrop-filter:blur(20px);
-            border-bottom:1px solid var(--border);
-        }
-        .logo{display:flex;align-items:center;gap:.5rem;font-weight:800;font-size:1.1rem}
-        .logo-flag{font-size:1.3rem}
-        .logo em{font-style:normal;color:var(--gold)}
-        .nav-btn{
-            background:var(--gold);color:#000;padding:.55rem 1.4rem;
-            border-radius:50px;font-weight:700;font-size:.875rem;
-            text-decoration:none;font-family:'Noto Sans Ethiopic','Inter',sans-serif;
-            box-shadow:0 4px 18px rgba(232,184,75,.35);transition:all .25s
-        }
-        .nav-btn:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,184,75,.5)}
+/* --- NAV --- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.9rem 2.5rem;
+  background:rgba(10,10,15,.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.logo{display:flex;align-items:center;gap:.75rem;font-weight:800;font-size:1.05rem}
+.logo-jp{
+  width:32px;height:32px;border-radius:50%;
+  background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.logo-jp::after{content:'';width:12px;height:12px;border-radius:50%;background:var(--red);display:block}
+.logo span{color:var(--gold)}
+.nbtn{
+  background:var(--gold);color:#000;padding:.55rem 1.5rem;border-radius:6px;
+  font-weight:700;font-size:.875rem;text-decoration:none;
+  font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+  transition:all .2s;letter-spacing:.2px;
+}
+.nbtn:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 6px 20px rgba(232,184,75,.4)}
 
-        /* HERO */
-        .hero{
-            min-height:100vh;display:flex;align-items:center;
-            padding:7rem 2.5rem 5rem;position:relative;overflow:hidden;
-        }
-        /* subtle grid bg */
-        .hero::before{
-            content:'';position:absolute;inset:0;
-            background-image:linear-gradient(rgba(232,184,75,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(232,184,75,.03) 1px,transparent 1px);
-            background-size:60px 60px;
-        }
-        .hero::after{
-            content:'';position:absolute;top:-200px;right:-200px;
-            width:600px;height:600px;border-radius:50%;
-            background:radial-gradient(circle,rgba(232,184,75,.07) 0%,transparent 70%);
-            pointer-events:none;
-        }
-        .hero-inner{
-            max-width:1100px;margin:0 auto;width:100%;
-            display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
-            position:relative;z-index:2;
-        }
-        @media(max-width:820px){.hero-inner{grid-template-columns:1fr;gap:3rem}}
+/* --- HERO --- */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:8rem 2rem 5rem;text-align:center;
+  position:relative;overflow:hidden;
+}
+/* dot grid */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+/* glow blob */
+.hero::after{
+  content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,184,75,.06) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:2;max-width:860px;margin:0 auto}
 
-        .hero-badge{
-            display:inline-flex;align-items:center;gap:.5rem;
-            background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.3);
-            color:var(--gold);padding:.4rem 1.1rem;border-radius:50px;
-            font-size:.78rem;font-weight:700;
-            font-family:'Noto Sans Ethiopic','Inter',sans-serif;
-            margin-bottom:1.75rem;letter-spacing:.3px;
-        }
-        .hero h1{
-            font-size:clamp(2.2rem,4vw,3.6rem);font-weight:900;line-height:1.2;
-            font-family:'Noto Sans Ethiopic','Inter',sans-serif;
-            margin-bottom:1.5rem;color:#fff;
-        }
-        .hero h1 .gold{color:var(--gold);text-shadow:0 0 30px rgba(232,184,75,.3)}
-        .hero-desc{
-            font-size:1.05rem;line-height:1.9;color:var(--sub);
-            font-family:'Noto Sans Ethiopic','Inter',sans-serif;
-            margin-bottom:2.5rem;
-        }
-        .hero-desc strong{color:#fff;font-weight:600}
-        .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
-        .btn-gold{
-            background:var(--gold);color:#000;padding:.95rem 2.2rem;
-            border-radius:50px;font-weight:800;font-size:1rem;text-decoration:none;
-            font-family:'Noto Sans Ethiopic','Inter',sans-serif;
-            box-shadow:0 6px 24px rgba(232,184,75,.4);transition:all .25s
-        }
-        .btn-gold:hover{background:var(--gold2);transform:translateY(-3px);box-shadow:0 10px 36px rgba(232,184,75,.55)}
-        .btn-line{
-            background:transparent;border:1.5px solid rgba(255,255,255,.25);
-            color:#fff;padding:.95rem 2.2rem;border-radius:50px;
-            font-weight:600;font-size:1rem;text-decoration:none;
-            font-family:'Noto Sans Ethiopic','Inter',sans-serif;transition:all .25s
-        }
-        .btn-line:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px)}
-        .hero-stats{display:flex;gap:0}
-        .hs{flex:1;text-align:center;padding:1rem .5rem;border-right:1px solid var(--border2)}
-        .hs:last-child{border-right:none}
-        .hs .n{font-size:1.8rem;font-weight:900;color:var(--gold)}
-        .hs .l{font-size:.72rem;color:var(--sub);margin-top:.2rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+/* Rising sun ring */
+.sun{
+  width:220px;height:220px;border-radius:50%;
+  border:1.5px solid rgba(232,184,75,.2);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 2.5rem;position:relative;animation:fadeUp .8s ease both;
+}
+.sun::before{
+  content:'';position:absolute;inset:-16px;border-radius:50%;
+  border:1px dashed rgba(232,184,75,.12);animation:spin 30s linear infinite;
+}
+.sun::after{
+  content:'';position:absolute;inset:-32px;border-radius:50%;
+  border:1px solid rgba(232,184,75,.07);
+}
+.sun-img{
+  width:100%;height:100%;border-radius:50%;object-fit:cover;
+  border:1.5px solid rgba(232,184,75,.25);
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.25);
+  color:var(--gold);padding:.38rem 1rem;border-radius:4px;
+  font-size:.75rem;font-weight:700;letter-spacing:.5px;
+  font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+  margin-bottom:1.75rem;animation:fadeUp .8s .1s ease both;
+}
+.hero h1{
+  font-size:clamp(2.4rem,6vw,4.8rem);font-weight:900;line-height:1.1;
+  font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+  letter-spacing:-.5px;margin-bottom:1.5rem;
+  animation:fadeUp .8s .2s ease both;
+}
+.hero h1 em{
+  font-style:normal;
+  color:var(--gold);
+  position:relative;
+}
+.hero h1 em::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;
+  background:var(--gold);border-radius:2px;
+}
+.hero-p{
+  font-size:1.1rem;line-height:1.9;color:rgba(255,255,255,.75);
+  max-width:560px;margin:0 auto 2.75rem;
+  font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+  animation:fadeUp .8s .3s ease both;
+}
+.hero-btns{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  margin-bottom:4rem;animation:fadeUp .8s .4s ease both;
+}
+.btn-a{
+  background:var(--gold);color:#000;padding:1rem 2.5rem;border-radius:6px;
+  font-weight:800;font-size:1rem;text-decoration:none;
+  font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+  box-shadow:0 4px 24px rgba(232,184,75,.4);transition:all .25s;
+}
+.btn-a:hover{background:var(--gold2);transform:translateY(-3px);box-shadow:0 10px 36px rgba(232,184,75,.55)}
+.btn-b{
+  background:rgba(255,255,255,.06);border:1px solid var(--border2);
+  color:#fff;padding:1rem 2.5rem;border-radius:6px;
+  font-weight:600;font-size:1rem;text-decoration:none;
+  font-family:'Noto Sans Ethiopic','Inter',sans-serif;transition:all .25s;
+}
+.btn-b:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
 
-        /* HERO IMAGE SIDE */
-        .hero-img-side{position:relative;animation:fadeUp .9s .3s ease both}
-        .hero-photo{
-            width:100%;border-radius:24px;aspect-ratio:4/5;object-fit:cover;
-            display:block;box-shadow:0 32px 80px rgba(0,0,0,.6);
-            border:1px solid var(--border2);
-        }
-        .hero-badge2{
-            position:absolute;bottom:1.5rem;left:1.5rem;
-            background:rgba(7,7,26,.9);backdrop-filter:blur(14px);
-            border:1px solid var(--border2);border-radius:14px;
-            padding:.85rem 1.1rem;display:flex;align-items:center;gap:.7rem;
-        }
-        .live-dot{width:10px;height:10px;border-radius:50%;background:#2ecc71;box-shadow:0 0 10px #2ecc71;flex-shrink:0}
-        .hero-badge2 span{font-size:.82rem;font-weight:600;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
-        .hero-badge3{
-            position:absolute;top:1.5rem;right:-1rem;
-            background:var(--gold);color:#000;padding:.7rem 1rem;
-            border-radius:14px;font-size:.82rem;font-weight:800;text-align:center;
-            box-shadow:0 8px 24px rgba(232,184,75,.4);
-            font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.4;
-        }
-        @media(max-width:820px){.hero-badge3{right:1rem}}
+/* hero stats strip */
+.h-strip{
+  display:flex;border-top:1px solid var(--border2);
+  width:100%;max-width:500px;margin:0 auto;
+  animation:fadeUp .8s .5s ease both;
+}
+.hs{flex:1;padding:1.25rem .5rem;text-align:center;border-right:1px solid var(--border2)}
+.hs:last-child{border-right:none}
+.hs .n{font-size:1.75rem;font-weight:900;color:var(--gold);line-height:1}
+.hs .l{font-size:.7rem;color:var(--muted);margin-top:.25rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
 
-        /* TICKER */
-        .ticker{
-            background:rgba(232,184,75,.06);
-            border-top:1px solid rgba(232,184,75,.15);
-            border-bottom:1px solid rgba(232,184,75,.15);
-            overflow:hidden;padding:.85rem 0;
-        }
-        .ticker-track{display:flex;animation:ticker 22s linear infinite;width:max-content}
-        .tick{
-            display:flex;align-items:center;gap:.6rem;padding:0 2.5rem;
-            white-space:nowrap;font-size:.82rem;font-weight:600;
-            color:var(--gold);font-family:'Noto Sans Ethiopic','Inter',sans-serif;
-        }
-        .tick::after{content:'·';opacity:.35;margin-left:.6rem}
+/* --- TICKER --- */
+.ticker{
+  padding:.8rem 0;overflow:hidden;
+  background:var(--ink2);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.t-track{display:flex;width:max-content;animation:ticker 24s linear infinite}
+.t-item{
+  padding:0 2rem;white-space:nowrap;
+  font-size:.8rem;font-weight:600;color:var(--gold);
+  font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+  display:flex;align-items:center;gap:.6rem;
+}
+.t-item::after{content:'✦';opacity:.3;font-size:.55rem}
 
-        /* SECTION */
-        section{padding:6rem 2.5rem}
-        .wrap{max-width:1060px;margin:0 auto}
-        .chip{
-            display:inline-flex;align-items:center;gap:.6rem;
-            color:var(--gold);font-size:.7rem;font-weight:700;
-            letter-spacing:2.5px;text-transform:uppercase;margin-bottom:.75rem;
-        }
-        .chip::before{content:'';width:22px;height:1.5px;background:var(--gold);flex-shrink:0}
-        .ttl{font-size:clamp(1.9rem,4vw,2.6rem);font-weight:800;line-height:1.2;font-family:'Noto Sans Ethiopic','Inter',sans-serif;margin-bottom:.75rem}
-        .sub{color:var(--sub);font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.85;font-size:.97rem}
-        .tc{text-align:center}.tc .chip{justify-content:center}.tc .chip::before{display:none}.tc .sub{max-width:480px;margin:.75rem auto 3.5rem}
+/* --- SHARED --- */
+section{padding:6rem 2rem}
+.w{max-width:1060px;margin:0 auto}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.7rem;font-weight:700;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;
+}
+.eyebrow::before{content:'';width:24px;height:1.5px;background:var(--gold)}
+h2.t{
+  font-size:clamp(2rem,4.5vw,3rem);font-weight:900;
+  font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+  line-height:1.2;margin-bottom:.75rem;
+}
+p.s{color:rgba(255,255,255,.65);font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.85;font-size:.97rem}
+.ctr{text-align:center}.ctr .eyebrow{justify-content:center}.ctr .eyebrow::before{display:none}.ctr p.s{max-width:480px;margin:.75rem auto 3.5rem}
 
-        /* ABOUT */
-        #about{background:var(--bg2)}
-        .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-        @media(max-width:700px){.about-grid{grid-template-columns:1fr;gap:2.5rem}}
-        .about-img-wrap{position:relative}
-        .about-img{width:100%;border-radius:20px;aspect-ratio:3/4;object-fit:cover;display:block;box-shadow:0 24px 70px rgba(0,0,0,.5);border:1px solid var(--border2)}
-        .ab-badge{
-            position:absolute;bottom:1.5rem;left:1.5rem;
-            background:rgba(7,7,26,.9);backdrop-filter:blur(14px);
-            border:1px solid var(--border2);border-radius:14px;
-            padding:.85rem 1.1rem;display:flex;align-items:center;gap:.7rem;
-        }
-        .ab-badge span{font-size:.82rem;font-weight:600;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
-        .about-stats{
-            display:grid;grid-template-columns:repeat(3,1fr);gap:0;
-            margin-top:2rem;border:1px solid var(--border2);border-radius:16px;overflow:hidden;
-        }
-        .ast{text-align:center;padding:1.4rem .75rem;border-right:1px solid var(--border2)}
-        .ast:last-child{border-right:none}
-        .ast .n{font-size:1.9rem;font-weight:900;color:var(--gold)}
-        .ast .l{font-size:.72rem;color:var(--sub);margin-top:.3rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.5}
+/* --- ABOUT --- */
+#about{background:var(--ink2)}
+.ag{display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:center}
+@media(max-width:720px){.ag{grid-template-columns:1fr;gap:3rem}}
+.ai{position:relative}
+.aimg{
+  width:100%;border-radius:16px;aspect-ratio:3/4;object-fit:cover;
+  display:block;border:1px solid var(--border2);
+  box-shadow:0 32px 80px rgba(0,0,0,.6);
+}
+.a-tag{
+  position:absolute;bottom:1.5rem;left:1.5rem;
+  background:rgba(10,10,15,.9);backdrop-filter:blur(16px);
+  border:1px solid var(--border2);border-radius:10px;
+  padding:.8rem 1.1rem;display:flex;align-items:center;gap:.65rem;
+}
+.ldot{width:9px;height:9px;border-radius:50%;background:#2ecc71;box-shadow:0 0 10px #2ecc71;flex-shrink:0}
+.a-tag span{font-size:.8rem;font-weight:600;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+.a-corner{
+  position:absolute;top:1.5rem;right:-1rem;
+  background:var(--gold);color:#000;padding:.7rem 1rem;
+  border-radius:10px;font-size:.8rem;font-weight:800;
+  line-height:1.4;text-align:center;
+  box-shadow:0 8px 28px rgba(232,184,75,.4);
+  font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+}
+@media(max-width:720px){.a-corner{right:1rem}}
+.a-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  margin-top:2rem;border:1px solid var(--border2);border-radius:12px;overflow:hidden;
+}
+.ag-s{padding:1.25rem .75rem;text-align:center;border-right:1px solid var(--border2)}
+.ag-s:last-child{border-right:none}
+.ag-s .n{font-size:1.8rem;font-weight:900;color:var(--gold)}
+.ag-s .l{font-size:.7rem;color:var(--muted);margin-top:.25rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.5}
 
-        /* PACKAGES */
-        #packages{background:var(--bg)}
-        .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
-        @media(max-width:760px){.pkg-grid{grid-template-columns:1fr}}
-        .pkg{
-            background:var(--card);border:1px solid var(--border2);
-            border-radius:22px;padding:2.25rem 2rem;
-            cursor:pointer;transition:all .3s;position:relative;overflow:hidden;
-        }
-        .pkg:hover{transform:translateY(-7px);border-color:rgba(232,184,75,.4);box-shadow:0 20px 50px rgba(0,0,0,.35)}
-        .pkg.feat{
-            background:linear-gradient(155deg,#111132 0%,#191945 100%);
-            border-color:rgba(232,184,75,.55);
-            animation:glow 3s ease infinite;
-        }
-        .pkg.feat:hover{transform:translateY(-7px)}
-        .pop{
-            position:absolute;top:0;left:50%;transform:translateX(-50%);
-            background:var(--gold);color:#000;
-            padding:.3rem 1.1rem;border-radius:0 0 12px 12px;
-            font-size:.7rem;font-weight:800;white-space:nowrap;
-            font-family:'Noto Sans Ethiopic','Inter',sans-serif;
-        }
-        .pkg-ico{font-size:2.25rem;margin-bottom:1.1rem;display:block}
-        .pkg-t{font-size:.77rem;color:var(--gold);font-weight:700;letter-spacing:.5px;margin-bottom:.6rem}
-        .pkg-p{display:flex;align-items:baseline;gap:.35rem;margin-bottom:1rem}
-        .pkg-p .n{font-size:2.7rem;font-weight:900;color:#fff;line-height:1}
-        .pkg-p .u{font-size:.85rem;color:var(--dim)}
-        .pkg-d{font-size:.88rem;color:var(--sub);margin-bottom:1.35rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.75}
-        .pkg-list{list-style:none;margin-bottom:1.75rem}
-        .pkg-list li{
-            font-size:.85rem;color:var(--sub);padding:.48rem 0;
-            display:flex;align-items:center;gap:.6rem;
-            border-bottom:1px solid var(--border);
-            font-family:'Noto Sans Ethiopic','Inter',sans-serif;
-        }
-        .pkg-list li:last-child{border-bottom:none}
-        .pkg-list li::before{content:'✦';color:var(--gold);font-size:.55rem;flex-shrink:0}
-        .pkg-cta{
-            width:100%;padding:.95rem;border-radius:13px;border:none;
-            cursor:pointer;font-weight:700;font-size:.9rem;
-            font-family:'Noto Sans Ethiopic','Inter',sans-serif;transition:all .25s;
-        }
-        .pkg.feat .pkg-cta{background:var(--gold);color:#000;box-shadow:0 4px 20px rgba(232,184,75,.4)}
-        .pkg:not(.feat) .pkg-cta{background:rgba(232,184,75,.08);color:var(--gold);border:1px solid rgba(232,184,75,.3)}
-        .pkg-cta:hover{opacity:.88;transform:translateY(-2px)}
+/* --- PACKAGES --- */
+#packages{background:var(--ink)}
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
+@media(max-width:760px){.pkg-grid{grid-template-columns:1fr}}
+.pkg{
+  background:var(--ink3);border:1px solid var(--border2);
+  border-radius:16px;padding:2.25rem;
+  cursor:pointer;transition:all .3s;position:relative;overflow:hidden;
+}
+.pkg::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,rgba(232,184,75,.4),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.pkg:hover{transform:translateY(-8px);border-color:rgba(232,184,75,.35);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.pkg:hover::before{opacity:1}
+.pkg.feat{
+  background:linear-gradient(145deg,#111128,#1a1a38);
+  border-color:rgba(232,184,75,.5);
+  box-shadow:0 0 0 1px rgba(232,184,75,.1),0 20px 60px rgba(0,0,0,.4);
+}
+.pkg.feat::before{opacity:1}
+.feat-badge{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  background:var(--gold);color:#000;
+  padding:.28rem 1.1rem;border-radius:0 0 10px 10px;
+  font-size:.7rem;font-weight:800;white-space:nowrap;
+  font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+}
+.pkg-num{
+  font-size:.75rem;font-weight:700;letter-spacing:2px;
+  color:var(--muted);text-transform:uppercase;margin-bottom:.6rem;
+}
+.pkg-price{margin-bottom:.35rem;line-height:1}
+.pkg-price .n{font-size:3rem;font-weight:900;color:#fff}
+.pkg-price .u{font-size:.85rem;color:var(--muted);margin-left:.2rem}
+.pkg-dur{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.2);
+  color:var(--gold);padding:.3rem .75rem;border-radius:4px;
+  font-size:.75rem;font-weight:700;margin-bottom:1.1rem;
+}
+.pkg-desc{font-size:.875rem;color:rgba(255,255,255,.6);margin-bottom:1.4rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.75}
+.pkg-feats{list-style:none;margin-bottom:1.75rem}
+.pkg-feats li{
+  font-size:.84rem;color:rgba(255,255,255,.65);padding:.45rem 0;
+  display:flex;align-items:center;gap:.6rem;
+  border-bottom:1px solid var(--border);
+  font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+}
+.pkg-feats li:last-child{border-bottom:none}
+.pkg-feats li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.pkg-btn{
+  width:100%;padding:.9rem;border-radius:8px;border:none;
+  cursor:pointer;font-weight:700;font-size:.9rem;
+  font-family:'Noto Sans Ethiopic','Inter',sans-serif;transition:all .25s;
+}
+.pkg.feat .pkg-btn{background:var(--gold);color:#000;box-shadow:0 4px 18px rgba(232,184,75,.4)}
+.pkg:not(.feat) .pkg-btn{background:rgba(255,255,255,.06);color:#fff;border:1px solid var(--border2)}
+.pkg-btn:hover{opacity:.85;transform:translateY(-2px)}
 
-        /* HOW */
-        #how{background:var(--bg2)}
-        .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3.5rem}
-        @media(max-width:660px){.steps{grid-template-columns:1fr}}
-        .step{
-            background:var(--card);border:1px solid var(--border2);
-            border-radius:20px;padding:2.25rem 1.75rem;text-align:center;
-            transition:all .3s;position:relative;overflow:hidden;
-        }
-        .step:hover{transform:translateY(-5px);border-color:rgba(232,184,75,.3)}
-        .step-n{
-            width:58px;height:58px;border-radius:50%;margin:0 auto 1.4rem;
-            background:rgba(232,184,75,.1);border:1.5px solid rgba(232,184,75,.35);
-            display:flex;align-items:center;justify-content:center;
-            font-size:1.35rem;font-weight:900;color:var(--gold);
-        }
-        .step h3{font-size:1rem;font-weight:700;margin-bottom:.65rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.5;color:#fff}
-        .step p{font-size:.86rem;color:var(--sub);font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.8}
+/* --- HOW --- */
+#how{background:var(--ink2);position:relative;overflow:hidden}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:4rem}
+@media(max-width:660px){.how-steps{grid-template-columns:1fr}}
+.step{position:relative;padding:2rem}
+.step::before{
+  content:'';position:absolute;top:2rem;right:-1.25rem;
+  width:2.5rem;height:1px;background:var(--border2);
+}
+.step:last-child::before{display:none}
+.step-big{
+  font-size:4rem;font-weight:900;color:rgba(232,184,75,.12);
+  line-height:1;margin-bottom:1.25rem;font-family:'Inter',sans-serif;
+}
+.step h3{font-size:1rem;font-weight:700;color:#fff;margin-bottom:.6rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.5}
+.step p{font-size:.86rem;color:rgba(255,255,255,.6);font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.8}
+.step-line{
+  width:32px;height:2px;background:var(--gold);margin-bottom:1rem;border-radius:2px;
+}
 
-        /* BOOK */
-        #book{background:var(--bg)}
-        .book-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:5rem;align-items:start}
-        @media(max-width:760px){.book-grid{grid-template-columns:1fr;gap:2.5rem}}
-        .book-l h2{font-size:clamp(1.7rem,3vw,2.2rem);font-weight:800;margin-bottom:1rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;color:#fff}
-        .book-l p{color:var(--sub);font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.85;font-size:.97rem;margin-bottom:2rem}
-        .book-img{width:100%;border-radius:18px;aspect-ratio:16/10;object-fit:cover;display:block;box-shadow:0 20px 55px rgba(0,0,0,.45);border:1px solid var(--border2)}
-        .fcard{background:var(--card2);border:1px solid var(--border2);border-radius:22px;padding:2.5rem;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-        .spb{
-            background:rgba(232,184,75,.07);border:1px solid rgba(232,184,75,.2);
-            border-radius:13px;padding:1rem 1.35rem;
-            display:flex;justify-content:space-between;align-items:center;
-            margin-bottom:1.75rem;
-        }
-        .spb-l{font-weight:600;color:#fff;font-size:.9rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
-        .spb-l small{display:block;color:var(--dim);font-size:.73rem;font-weight:400;margin-top:.1rem}
-        .spb-r{font-size:1.2rem;font-weight:900;color:var(--gold)}
-        .fg{margin-bottom:1.1rem}
-        .fg label{display:block;font-size:.81rem;font-weight:600;color:#d0d8f0;margin-bottom:.42rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
-        .fg input,.fg select,.fg textarea{
-            width:100%;padding:.85rem 1.05rem;
-            background:rgba(255,255,255,.05);border:1.5px solid var(--border2);
-            border-radius:11px;color:#fff;font-size:.93rem;
-            font-family:'Inter','Noto Sans Ethiopic',sans-serif;transition:border-color .2s,background .2s;
-            -webkit-appearance:none;
-        }
-        .fg input::placeholder,.fg textarea::placeholder{color:var(--dim)}
-        .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:rgba(232,184,75,.6);background:rgba(232,184,75,.04)}
-        .fg select option{background:#0f0f2a}
-        .fg textarea{resize:vertical}
-        .fsub{
-            width:100%;padding:1.05rem;border-radius:13px;border:none;
-            background:var(--gold);color:#000;font-size:1rem;font-weight:800;
-            cursor:pointer;font-family:'Noto Sans Ethiopic','Inter',sans-serif;
-            box-shadow:0 6px 26px rgba(232,184,75,.38);transition:all .3s;margin-top:.5rem;
-        }
-        .fsub:hover{background:var(--gold2);transform:translateY(-3px);box-shadow:0 12px 38px rgba(232,184,75,.52)}
+/* --- BOOKING --- */
+#book{background:var(--ink)}
+.book-wrap{
+  display:grid;grid-template-columns:1fr 1.15fr;gap:5rem;align-items:start;
+}
+@media(max-width:760px){.book-wrap{grid-template-columns:1fr;gap:2.5rem}}
+.book-l{padding-top:.5rem}
+.book-l h2{font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:900;margin-bottom:1rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.2}
+.book-l p{color:rgba(255,255,255,.6);font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.85;font-size:.97rem;margin-bottom:2rem}
+.book-photo{width:100%;border-radius:14px;aspect-ratio:16/10;object-fit:cover;display:block;box-shadow:0 20px 60px rgba(0,0,0,.5);border:1px solid var(--border)}
+.fcard{background:var(--ink3);border:1px solid var(--border2);border-radius:16px;padding:2.5rem}
+.spb{
+  background:rgba(232,184,75,.07);border:1px solid rgba(232,184,75,.18);
+  border-radius:10px;padding:1rem 1.3rem;
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:1.75rem;
+}
+.spb-l{font-weight:600;color:#fff;font-size:.9rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+.spb-l small{display:block;color:var(--muted);font-size:.73rem;font-weight:400;margin-top:.1rem}
+.spb-r{font-size:1.2rem;font-weight:900;color:var(--gold)}
+.fg{margin-bottom:1.1rem}
+.fg label{display:block;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:.4rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+.fg input,.fg select,.fg textarea{
+  width:100%;padding:.85rem 1rem;
+  background:rgba(255,255,255,.04);
+  border:1.5px solid var(--border2);border-radius:8px;
+  color:#fff;font-size:.93rem;
+  font-family:'Inter','Noto Sans Ethiopic',sans-serif;
+  transition:border-color .2s,background .2s;-webkit-appearance:none;
+}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--muted)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{
+  outline:none;border-color:rgba(232,184,75,.55);background:rgba(232,184,75,.03)
+}
+.fg select option{background:#18181f}
+.fg textarea{resize:vertical}
+.fsub{
+  width:100%;padding:1.05rem;border-radius:8px;border:none;
+  background:var(--gold);color:#000;font-size:1rem;font-weight:800;
+  cursor:pointer;font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+  box-shadow:0 4px 24px rgba(232,184,75,.38);transition:all .3s;margin-top:.5rem;
+}
+.fsub:hover{background:var(--gold2);transform:translateY(-3px);box-shadow:0 10px 36px rgba(232,184,75,.52)}
 
-        /* FLOAT */
-        .float{
-            position:fixed;bottom:2rem;right:2rem;z-index:200;
-            background:#25D366;color:#fff;width:58px;height:58px;
-            border-radius:50%;display:flex;align-items:center;justify-content:center;
-            font-size:1.6rem;text-decoration:none;
-            box-shadow:0 6px 28px rgba(37,211,102,.5);animation:float 3s ease infinite;
-            transition:transform .3s;
-        }
-        .float:hover{transform:scale(1.12)!important}
+/* --- FLOAT BTN --- */
+.fab{
+  position:fixed;bottom:2rem;right:2rem;z-index:200;
+  width:56px;height:56px;border-radius:50%;
+  background:#25D366;color:#fff;font-size:1.55rem;
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;box-shadow:0 6px 28px rgba(37,211,102,.5);
+  animation:floatY 3.5s ease infinite;transition:transform .3s;
+}
+.fab:hover{transform:scale(1.12)!important}
 
-        /* FOOTER */
-        footer{background:#04040f;border-top:1px solid var(--border);padding:2.75rem 2.5rem;text-align:center}
-        .flogo{font-size:1.15rem;font-weight:900;color:var(--gold);margin-bottom:.5rem}
-        footer p{color:var(--dim);font-size:.82rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.8}
-        footer a{color:var(--gold);text-decoration:none}
+/* --- FOOTER --- */
+footer{
+  background:#060609;border-top:1px solid var(--border);
+  padding:3rem 2rem;text-align:center;
+}
+.flogo{
+  display:flex;align-items:center;justify-content:center;gap:.7rem;
+  font-size:1.1rem;font-weight:900;color:var(--gold);margin-bottom:.75rem;
+}
+.flogo-ring{
+  width:28px;height:28px;border-radius:50%;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+}
+.flogo-ring::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--red);display:block}
+footer p{color:var(--muted);font-size:.82rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.8}
+footer a{color:var(--gold);text-decoration:none}
 
-        /* MODAL */
-        .ov{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
-        .ov.on{display:flex}
-        .modal{
-            background:var(--card2);border:1px solid var(--border2);border-radius:22px;
-            padding:2.5rem;max-width:460px;width:100%;position:relative;
-            max-height:90vh;overflow-y:auto;box-shadow:0 32px 90px rgba(0,0,0,.7);
-            animation:fadeUp .35s ease;
-        }
-        .mx{position:absolute;top:1.15rem;right:1.15rem;background:rgba(255,255,255,.06);border:1px solid var(--border2);color:var(--sub);width:33px;height:33px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;transition:all .2s;border-style:solid}
-        .mx:hover{background:rgba(255,255,255,.12);color:#fff}
-        .m-ico{width:56px;height:56px;border-radius:50%;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.25);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.2rem}
-        .modal h2{font-size:1.35rem;font-weight:800;font-family:'Noto Sans Ethiopic','Inter',sans-serif;margin-bottom:.4rem;color:#fff}
-        .m-sub{color:var(--sub);font-size:.875rem;line-height:1.85;font-family:'Noto Sans Ethiopic','Inter',sans-serif;margin-bottom:1.75rem}
-        .pbox{background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:14px;padding:1.3rem;margin-bottom:.9rem}
-        .pbox-h{font-size:.7rem;color:var(--gold);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
-        .pr{display:flex;justify-content:space-between;align-items:center;padding:.52rem 0;border-bottom:1px solid var(--border);font-size:.875rem}
-        .pr:last-child{border-bottom:none}
-        .pr .pl{color:var(--sub);font-family:'Noto Sans Ethiopic','Inter',sans-serif}
-        .pr .pv{font-weight:600;color:#fff;font-family:'Inter',monospace}
-        .pr .pv.big{color:var(--gold);font-size:1.1rem}
-        .cpb{background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.3);color:var(--gold);padding:.2rem .65rem;border-radius:7px;font-size:.71rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
-        .cpb:hover{background:rgba(232,184,75,.2)}
-        .div{display:flex;align-items:center;gap:.75rem;margin:1rem 0}
-        .div hr{flex:1;border:none;border-top:1px solid var(--border)}
-        .div span{color:var(--dim);font-size:.75rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
-        .mnote{background:rgba(232,184,75,.05);border:1px solid rgba(232,184,75,.15);border-radius:12px;padding:1rem 1.1rem;font-size:.84rem;color:var(--sub);line-height:1.85;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
-        .mnote strong{color:var(--gold)}
+/* --- MODAL --- */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+.ov.on{display:flex}
+.modal{
+  background:var(--ink3);border:1px solid var(--border2);
+  border-radius:16px;padding:2.5rem;max-width:460px;width:100%;
+  position:relative;max-height:90vh;overflow-y:auto;
+  box-shadow:0 32px 90px rgba(0,0,0,.7);
+  animation:fadeUp .35s ease;
+}
+.mx{position:absolute;top:1.1rem;right:1.1rem;background:rgba(255,255,255,.06);color:var(--muted);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;border:1px solid var(--border2);transition:all .2s}
+.mx:hover{background:rgba(255,255,255,.12);color:#fff}
+.m-ico{width:56px;height:56px;border-radius:50%;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.25);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
+.modal h2{font-size:1.35rem;font-weight:800;font-family:'Noto Sans Ethiopic','Inter',sans-serif;margin-bottom:.4rem}
+.m-sub{color:rgba(255,255,255,.65);font-size:.875rem;line-height:1.85;font-family:'Noto Sans Ethiopic','Inter',sans-serif;margin-bottom:1.75rem}
+.pbox{background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:12px;padding:1.25rem;margin-bottom:.9rem}
+.pbox-h{font-size:.68rem;color:var(--gold);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+.pr{display:flex;justify-content:space-between;align-items:center;padding:.52rem 0;border-bottom:1px solid var(--border);font-size:.875rem}
+.pr:last-child{border-bottom:none}
+.pr .pl{color:rgba(255,255,255,.55);font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+.pr .pv{font-weight:600;color:#fff;font-family:'Inter',monospace}
+.pr .pv.big{color:var(--gold);font-size:1.1rem}
+.cpb{background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.3);color:var(--gold);padding:.2rem .65rem;border-radius:5px;font-size:.71rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
+.cpb:hover{background:rgba(232,184,75,.2)}
+.dvd{display:flex;align-items:center;gap:.75rem;margin:1rem 0}
+.dvd hr{flex:1;border:none;border-top:1px solid var(--border)}
+.dvd span{color:var(--muted);font-size:.75rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+.mnote{background:rgba(232,184,75,.05);border:1px solid rgba(232,184,75,.15);border-radius:10px;padding:1rem 1.1rem;font-size:.84rem;color:rgba(255,255,255,.65);line-height:1.85;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+.mnote strong{color:var(--gold)}
 
-        ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#222;border-radius:5px}
-    </style>
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--ink)}::-webkit-scrollbar-thumb{background:#222;border-radius:5px}
+</style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-    <div class="logo"><span class="logo-flag">🇯🇵</span> <em>Japan</em>&nbsp;Consultation</div>
-    <a href="#book" class="nav-btn">አሁን ቡክ አድርግ</a>
+  <div class="logo">
+    <div class="logo-jp"></div>
+    <span>Japan</span>&nbsp;Consultation
+  </div>
+  <a href="#book" class="nbtn">አሁን ቡክ አድርግ</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-    <div class="hero-inner">
-        <!-- LEFT: TEXT -->
-        <div style="animation:fadeUp .8s ease both">
-            <div class="hero-badge">🇯🇵 ጃፓን ውስጥ የምኖር ኢትዮጵያዊ · Ethiopian in Japan</div>
-            <h1>
-                ወደ ጃፓን መምጣት<br>
-                ለምትፈልጉ <span class="gold">ሙሉ ምክር</span><br>
-                እዚህ ያገኛሉ።
-            </h1>
-            <p class="hero-desc">
-                ስለ ቪዛ ፤ ስራ ፤ ቋንቋ ፤ ኑሮ ፤ ማንኛውም ጥያቄያችሁ ይመለስላችዋል።<br>
-                <strong>ጃፓን እንደምንኖር ሙሉ በሙሉ ትክክለኛ መረጃ ታገኛላችሁ።</strong>
-            </p>
-            <div class="hero-btns">
-                <a href="#packages" class="btn-gold">ዋጋ ይመልከቱ / View Packages</a>
-                <a href="#how" class="btn-line">አመልክት</a>
-            </div>
-            <div class="hero-stats">
-                <div class="hs"><div class="n">20+</div><div class="l">People Helped</div></div>
-                <div class="hs"><div class="n">5★</div><div class="l">Rating</div></div>
-                <div class="hs"><div class="n">🇯🇵</div><div class="l">Based in Japan</div></div>
-            </div>
-        </div>
-
-        <!-- RIGHT: IMAGE -->
-        <div class="hero-img-side">
-            <img class="hero-photo"
-                src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=900&q=85"
-                alt="Tokyo at night">
-            <div class="hero-badge2">
-                <div class="live-dot"></div>
-                <span>🇯🇵 ጃፓን ውስጥ ይኖራሉ</span>
-            </div>
-            <div class="hero-badge3">Japan<br>Based 🇯🇵</div>
-        </div>
+  <div class="hero-inner">
+    <div class="sun">
+      <img class="sun-img"
+        src="https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=400&q=85"
+        alt="Tokyo Japan">
     </div>
+    <div class="hero-tag">🇯🇵 ጃፓን ውስጥ የምኖር ኢትዮጵያዊ · Ethiopian Living in Japan</div>
+    <h1>
+      ወደ ጃፓን መምጣት<br>
+      ለምትፈልጉ <em>ሙሉ ምክር</em><br>
+      እዚህ ያገኛሉ።
+    </h1>
+    <p class="hero-p">
+      ስለ ቪዛ ፤ ስራ ፤ ቋንቋ ፤ ኑሮ ፤ ማንኛውም ጥያቄያችሁ ይመለስላችዋል።<br>
+      ጃፓን እንደምንኖር ሙሉ በሙሉ ትክክለኛ መረጃ ታገኛላችሁ።
+    </p>
+    <div class="hero-btns">
+      <a href="#packages" class="btn-a">ዋጋ ይመልከቱ / View Packages</a>
+      <a href="#how" class="btn-b">አመልክት</a>
+    </div>
+    <div class="h-strip">
+      <div class="hs"><div class="n">20+</div><div class="l">People Helped</div></div>
+      <div class="hs"><div class="n">5★</div><div class="l">Rating</div></div>
+      <div class="hs"><div class="n">🇯🇵</div><div class="l">Based in Japan</div></div>
+    </div>
+  </div>
 </section>
 
 <!-- TICKER -->
 <div class="ticker">
-    <div class="ticker-track">
-        <div class="tick">🛂 ቪዛ / Visa</div>
-        <div class="tick">💼 ሥራ / Work</div>
-        <div class="tick">🗣️ ቋንቋ / Language</div>
-        <div class="tick">🏠 ቤት / Housing</div>
-        <div class="tick">📚 ትምህርት / Study</div>
-        <div class="tick">🌐 ኑሮ / Life in Japan</div>
-        <div class="tick">✈️ መጓዝ / Travel</div>
-        <div class="tick">💰 ወጪ / Cost of Living</div>
-        <div class="tick">🛂 ቪዛ / Visa</div>
-        <div class="tick">💼 ሥራ / Work</div>
-        <div class="tick">🗣️ ቋንቋ / Language</div>
-        <div class="tick">🏠 ቤት / Housing</div>
-        <div class="tick">📚 ትምህርት / Study</div>
-        <div class="tick">🌐 ኑሮ / Life in Japan</div>
-        <div class="tick">✈️ መጓዝ / Travel</div>
-        <div class="tick">💰 ወጪ / Cost of Living</div>
-    </div>
+  <div class="t-track">
+    <div class="t-item">🛂 ቪዛ / Visa</div>
+    <div class="t-item">💼 ሥራ / Work</div>
+    <div class="t-item">🗣️ ቋንቋ / Language</div>
+    <div class="t-item">🏠 ቤት / Housing</div>
+    <div class="t-item">📚 ትምህርት / Study</div>
+    <div class="t-item">🌐 ኑሮ / Life in Japan</div>
+    <div class="t-item">✈️ መጓዝ / Travel</div>
+    <div class="t-item">💰 ወጪ / Cost of Living</div>
+    <div class="t-item">🛂 ቪዛ / Visa</div>
+    <div class="t-item">💼 ሥራ / Work</div>
+    <div class="t-item">🗣️ ቋንቋ / Language</div>
+    <div class="t-item">🏠 ቤት / Housing</div>
+    <div class="t-item">📚 ትምህርት / Study</div>
+    <div class="t-item">🌐 ኑሮ / Life in Japan</div>
+    <div class="t-item">✈️ መጓዝ / Travel</div>
+    <div class="t-item">💰 ወጪ / Cost of Living</div>
+  </div>
 </div>
 
 <!-- ABOUT -->
 <section id="about">
-    <div class="wrap">
-        <div class="about-grid">
-            <div class="about-img-wrap reveal">
-                <img class="about-img"
-                    src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&q=85"
-                    alt="Shibuya Tokyo" loading="lazy">
-                <div class="ab-badge">
-                    <div class="live-dot"></div>
-                    <span>🇯🇵 ጃፓን ውስጥ ይኖራሉ · Live in Japan</span>
-                </div>
-            </div>
-            <div class="reveal">
-                <div class="chip">ABOUT · ስለ ኛ</div>
-                <h2 class="ttl">እንኳን ደህና<br>መጣችሁ 👋</h2>
-                <p class="sub">
-                    ጃፓን ለዓመታት ኖሬ — ቪዛ ሂደት፣ ቋንቋ ማጥናት፣ ሥራ ማፈላለግ፣
-                    ቤት ማከራየት ሁሉም ነገር አልፌዋለሁ። ጥያቄያችሁ ሁሉ ቀጥታ ከልምዴ ይመለስልዎታል።
-                </p>
-                <div class="about-stats">
-                    <div class="ast"><div class="n">20+</div><div class="l">የታገዙ ሰዎች<br>Helped</div></div>
-                    <div class="ast"><div class="n">5★</div><div class="l">ደረጃ<br>Rating</div></div>
-                    <div class="ast"><div class="n">100%</div><div class="l">ትክክለኛ<br>Accurate</div></div>
-                </div>
-            </div>
+  <div class="w">
+    <div class="ag">
+      <div class="ai r">
+        <img class="aimg"
+          src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&q=85"
+          alt="Shibuya" loading="lazy">
+        <div class="a-tag"><div class="ldot"></div><span>🇯🇵 ጃፓን ውስጥ ይኖራሉ · Live in Japan</span></div>
+        <div class="a-corner">Japan<br>Based 🇯🇵</div>
+      </div>
+      <div class="r">
+        <div class="eyebrow">ABOUT · ስለ ኛ</div>
+        <h2 class="t">እንኳን ደህና<br>መጣችሁ 👋</h2>
+        <p class="s">ጃፓን ለዓመታት ኖሬ — ቪዛ ሂደት፣ ቋንቋ ማጥናት፣ ሥራ ማፈላለግ፣ ቤት ማከራየት ሁሉም ነገር አልፌዋለሁ። ጥያቄያችሁ ሁሉ ቀጥታ ከልምዴ ይመለስልዎታል።</p>
+        <div class="a-grid">
+          <div class="ag-s"><div class="n">20+</div><div class="l">የታገዙ ሰዎች<br>Helped</div></div>
+          <div class="ag-s"><div class="n">5★</div><div class="l">ደረጃ<br>Rating</div></div>
+          <div class="ag-s"><div class="n">100%</div><div class="l">ትክክለኛ<br>Accurate</div></div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- PACKAGES -->
 <section id="packages">
-    <div class="wrap">
-        <div class="tc reveal">
-            <div class="chip">PACKAGES · ጥቅሎች</div>
-            <h2 class="ttl">የምክር ጊዜ ምረጥ</h2>
-            <p class="sub">ለጥያቄህ ተስማሚ ጊዜ ምረጥ — ሁሉም ቀጥታ 1-on-1 ምክር ያካትታሉ</p>
-        </div>
-        <div class="pkg-grid">
-            <div class="pkg reveal" onclick="pick('40min','40 ደቂቃ / 40 Minutes',5000)">
-                <span class="pkg-ico">⚡</span>
-                <div class="pkg-t">40 ደቂቃ · 40 MIN</div>
-                <div class="pkg-p"><span class="n">5,000</span><span class="u">ብር / ETB</span></div>
-                <p class="pkg-d">ፈጣን እና ቀጥተኛ ጥያቄዎች ላላቸው ተስማሚ</p>
-                <ul class="pkg-list">
-                    <li>ቀጥታ 1-on-1 ምክር</li>
-                    <li>ሁሉም ርዕሶች ይሸፈናሉ</li>
-                    <li>Zoom / WhatsApp</li>
-                </ul>
-                <button class="pkg-cta">ይምረጡ / Select</button>
-            </div>
-
-            <div class="pkg feat reveal" onclick="pick('1hr','1 ሰዓት / 1 Hour',6000)">
-                <div class="pop">⭐ ምርጥ ምርጫ · Most Popular</div>
-                <span class="pkg-ico" style="margin-top:1rem">🌟</span>
-                <div class="pkg-t">1 ሰዓት · 1 HOUR</div>
-                <div class="pkg-p"><span class="n">6,000</span><span class="u">ብር / ETB</span></div>
-                <p class="pkg-d">ሙሉ ዕቅድ — ቪዛ፣ ሥራ፣ ኑሮ ሁሉ</p>
-                <ul class="pkg-list">
-                    <li>ቀጥታ 1-on-1 ምክር</li>
-                    <li>ሁሉም ርዕሶች ይሸፈናሉ</li>
-                    <li>Zoom / WhatsApp</li>
-                    <li>ከምክሩ በኋላ ፎሎው-አፕ</li>
-                </ul>
-                <button class="pkg-cta">ይምረጡ / Select</button>
-            </div>
-
-            <div class="pkg reveal" onclick="pick('1.5hr','1:30 ሰዓት / 1.5 Hours',10000)">
-                <span class="pkg-ico">🚀</span>
-                <div class="pkg-t">1:30 ሰዓት · 1.5 HRS</div>
-                <div class="pkg-p"><span class="n">10,000</span><span class="u">ብር / ETB</span></div>
-                <p class="pkg-d">ጥልቅ ዕቅድ እና ሙሉ ድጋፍ ለሚፈልጉ</p>
-                <ul class="pkg-list">
-                    <li>ቀጥታ 1-on-1 ምክር</li>
-                    <li>ሙሉ Roadmap</li>
-                    <li>Zoom / WhatsApp</li>
-                    <li>ፎሎው-አፕ + ሰነዶች ፍተሻ</li>
-                </ul>
-                <button class="pkg-cta">ይምረጡ / Select</button>
-            </div>
-        </div>
+  <div class="w">
+    <div class="ctr r">
+      <div class="eyebrow">PACKAGES · ጥቅሎች</div>
+      <h2 class="t">የምክር ጊዜ ምረጥ</h2>
+      <p class="s">ለጥያቄህ ተስማሚ ጊዜ ምረጥ — ሁሉም ቀጥታ 1-on-1 ምክር ያካትታሉ</p>
     </div>
+    <div class="pkg-grid">
+
+      <div class="pkg r" onclick="pick('40min','40 ደቂቃ / 40 Minutes',5000)">
+        <div class="pkg-num">01 · Starter</div>
+        <div class="pkg-price"><span class="n">5,000</span><span class="u">ብር</span></div>
+        <div class="pkg-dur">⏱ 40 ደቂቃ · 40 MIN</div>
+        <p class="pkg-desc">ፈጣን እና ቀጥተኛ ጥያቄዎች ላላቸው ተስማሚ</p>
+        <ul class="pkg-feats">
+          <li>ቀጥታ 1-on-1 ምክር</li>
+          <li>ሁሉም ርዕሶች</li>
+          <li>Zoom / WhatsApp</li>
+        </ul>
+        <button class="pkg-btn">ይምረጡ / Select →</button>
+      </div>
+
+      <div class="pkg feat r" onclick="pick('1hr','1 ሰዓት / 1 Hour',6000)">
+        <div class="feat-badge">⭐ Most Popular</div>
+        <div class="pkg-num" style="margin-top:.75rem">02 · Standard</div>
+        <div class="pkg-price"><span class="n">6,000</span><span class="u">ብር</span></div>
+        <div class="pkg-dur">⏱ 1 ሰዓት · 1 HOUR</div>
+        <p class="pkg-desc">ሙሉ ዕቅድ — ቪዛ፣ ሥራ፣ ኑሮ ሁሉ</p>
+        <ul class="pkg-feats">
+          <li>ቀጥታ 1-on-1 ምክር</li>
+          <li>ሁሉም ርዕሶች</li>
+          <li>Zoom / WhatsApp</li>
+          <li>ከምክሩ በኋላ ፎሎው-አፕ</li>
+        </ul>
+        <button class="pkg-btn">ይምረጡ / Select →</button>
+      </div>
+
+      <div class="pkg r" onclick="pick('1.5hr','1:30 ሰዓት / 1.5 Hours',10000)">
+        <div class="pkg-num">03 · Premium</div>
+        <div class="pkg-price"><span class="n">10,000</span><span class="u">ብር</span></div>
+        <div class="pkg-dur">⏱ 1:30 ሰዓት · 1.5 HRS</div>
+        <p class="pkg-desc">ጥልቅ ዕቅድ እና ሙሉ ድጋፍ ለሚፈልጉ</p>
+        <ul class="pkg-feats">
+          <li>ቀጥታ 1-on-1 ምክር</li>
+          <li>ሙሉ Roadmap</li>
+          <li>Zoom / WhatsApp</li>
+          <li>ፎሎው-አፕ + ሰነዶች ፍተሻ</li>
+        </ul>
+        <button class="pkg-btn">ይምረጡ / Select →</button>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 <!-- HOW -->
 <section id="how">
-    <div class="wrap">
-        <div class="tc reveal">
-            <div class="chip">HOW IT WORKS · እንዴት ይሰራል</div>
-            <h2 class="ttl">3 ቀላል ደረጃዎች</h2>
-            <p class="sub">ቀጥታ እና ቀላል ሂደት — ከቡኪንግ እስከ ምክሩ</p>
-        </div>
-        <div class="steps">
-            <div class="step reveal">
-                <div class="step-n">1</div>
-                <h3>ጥቅሉን ምረጥ<br><small style="color:var(--dim);font-weight:400">Choose Package</small></h3>
-                <p>ለሁኔታህ ተስማሚ የምክር ጊዜ ምረጥ እና ቅጹን ሙላ</p>
-            </div>
-            <div class="step reveal">
-                <div class="step-n">2</div>
-                <h3>ክፍያ ፈጽም<br><small style="color:var(--dim);font-weight:400">Make Payment</small></h3>
-                <p>አቢሲኒያ ባንክ ወይም Wise (ለውጭ ሀገር) ቀጥታ ትራንስፈር</p>
-            </div>
-            <div class="step reveal">
-                <div class="step-n">3</div>
-                <h3>ቀጠሮ እናስይዝልዎታለን<br><small style="color:var(--dim);font-weight:400">Get Consulted</small></h3>
-                <p>Screenshot እንደደረሰን ቀጠሮ ተቀጥሮ ምክሩ ይጀምራል</p>
-            </div>
-        </div>
+  <div class="w">
+    <div class="ctr r">
+      <div class="eyebrow">HOW IT WORKS · እንዴት ይሰራል</div>
+      <h2 class="t">3 ቀላል ደረጃዎች</h2>
+      <p class="s">ቀጥታ እና ቀላል ሂደት — ከቡኪንግ እስከ ምክሩ</p>
     </div>
+    <div class="how-steps">
+      <div class="step r">
+        <div class="step-big">01</div>
+        <div class="step-line"></div>
+        <h3>ጥቅሉን ምረጥ<br><small style="color:var(--muted);font-weight:400">Choose Package</small></h3>
+        <p>ለሁኔታህ ተስማሚ የምክር ጊዜ ምረጥ እና ቅጹን ሙላ</p>
+      </div>
+      <div class="step r">
+        <div class="step-big">02</div>
+        <div class="step-line"></div>
+        <h3>ክፍያ ፈጽም<br><small style="color:var(--muted);font-weight:400">Make Payment</small></h3>
+        <p>አቢሲኒያ ባንክ ወይም Wise ቀጥታ ትራንስፈር</p>
+      </div>
+      <div class="step r">
+        <div class="step-big">03</div>
+        <div class="step-line"></div>
+        <h3>ቀጠሮ እናስይዝልዎታለን<br><small style="color:var(--muted);font-weight:400">Get Consulted</small></h3>
+        <p>Screenshot እንደደረሰን ቀጠሮ ተቀጥሮ ምክሩ ይጀምራል</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- BOOKING -->
 <section id="book">
-    <div class="wrap">
-        <div class="book-grid">
-            <div class="book-l reveal">
-                <div class="chip">BOOK NOW · አሁን ቡክ አድርግ</div>
-                <h2>ምዝገባ</h2>
-                <p>ቅጹን ሞልታችሁ ክፍያ እንደፈጸማችሁ ሙሉ ዝርዝር መረጃ እንሰጣለን</p>
-                <img class="book-img"
-                    src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=800&q=85"
-                    alt="Mount Fuji" loading="lazy">
-            </div>
-            <div class="fcard reveal">
-                <div class="spb">
-                    <div class="spb-l" id="spbN">ጥቅሉን ከላይ ምረጥ<small>Select a package above or choose below</small></div>
-                    <div class="spb-r" id="spbP">—</div>
-                </div>
-                <form id="bform" onsubmit="sub(event)">
-                    <div class="fg">
-                        <label>ሙሉ ስም / Full Name *</label>
-                        <input type="text" id="fn" placeholder="ሙሉ ስምህን አስገባ" required>
-                    </div>
-                    <div class="fg">
-                        <label>WhatsApp ወይም Telegram ቁጥር *</label>
-                        <input type="tel" id="fc" placeholder="+251 9XX XXX XXX" required>
-                    </div>
-                    <div class="fg">
-                        <label>ጥቅሉን ምረጥ / Package *</label>
-                        <select id="fs" required onchange="syncs()">
-                            <option value="">-- ጥቅሉን ምረጥ --</option>
-                            <option value="40min|40 ደቂቃ / 40 Minutes|5000">40 ደቂቃ (40 min) — 5,000 ብር</option>
-                            <option value="1hr|1 ሰዓት / 1 Hour|6000">1 ሰዓት (1 hr) — 6,000 ብር</option>
-                            <option value="1.5hr|1:30 ሰዓት / 1.5 Hours|10000">1:30 ሰዓት (1.5 hrs) — 10,000 ብር</option>
-                        </select>
-                    </div>
-                    <div class="fg">
-                        <label>ምክር የሚፈልጉት ስለ ምንድን ነው?</label>
-                        <textarea id="ft" rows="3" placeholder="ቪዛ? ሥራ? ትምህርት? ኑሮ? ቋንቋ?"></textarea>
-                    </div>
-                    <button type="submit" class="fsub">ክፍያ ዝርዝር ይሰጠኝ / Get Payment Details →</button>
-                </form>
-            </div>
+  <div class="w">
+    <div class="book-wrap">
+      <div class="book-l r">
+        <div class="eyebrow">BOOK NOW · አሁን ቡክ አድርግ</div>
+        <h2>ምዝገባ</h2>
+        <p>ቅጹን ሞልታችሁ ክፍያ እንደፈጸማችሁ ሙሉ ዝርዝር መረጃ እንሰጣለን</p>
+        <img class="book-photo"
+          src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=800&q=85"
+          alt="Mount Fuji" loading="lazy">
+      </div>
+      <div class="fcard r">
+        <div class="spb">
+          <div class="spb-l" id="spbN">ጥቅሉን ከላይ ምረጥ<small>Select a package above or choose below</small></div>
+          <div class="spb-r" id="spbP">—</div>
         </div>
+        <form id="bform" onsubmit="fsub(event)">
+          <div class="fg">
+            <label>ሙሉ ስም / Full Name *</label>
+            <input type="text" id="fn" placeholder="ሙሉ ስምህን አስገባ" required>
+          </div>
+          <div class="fg">
+            <label>WhatsApp ወይም Telegram ቁጥር *</label>
+            <input type="tel" id="fc" placeholder="+251 9XX XXX XXX" required>
+          </div>
+          <div class="fg">
+            <label>ጥቅሉን ምረጥ / Package *</label>
+            <select id="fs" required onchange="syncs()">
+              <option value="">-- ጥቅሉን ምረጥ --</option>
+              <option value="40min|40 ደቂቃ / 40 Minutes|5000">40 ደቂቃ (40 min) — 5,000 ብር</option>
+              <option value="1hr|1 ሰዓት / 1 Hour|6000">1 ሰዓት (1 hr) — 6,000 ብር</option>
+              <option value="1.5hr|1:30 ሰዓት / 1.5 Hours|10000">1:30 ሰዓት (1.5 hrs) — 10,000 ብር</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>ምክር የሚፈልጉት ስለ ምንድን ነው?</label>
+            <textarea id="ft" rows="3" placeholder="ቪዛ? ሥራ? ትምህርት? ኑሮ? ቋንቋ?"></textarea>
+          </div>
+          <button type="submit" class="fsub">ክፍያ ዝርዝር ይሰጠኝ / Get Payment Details →</button>
+        </form>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-    <div class="flogo">Japan Consultation 🇯🇵</div>
-    <p>© 2025 Japan Consultation · ሁሉም መብቶች የተጠበቁ ናቸው</p>
-    <p style="margin-top:.4rem">ጥያቄ? <a href="https://wa.me/818043611641">WhatsApp / Telegram +81 80-4361-1641</a></p>
+  <div class="flogo"><div class="flogo-ring"></div>Japan Consultation</div>
+  <p>© 2025 Japan Consultation · ሁሉም መብቶች የተጠበቁ ናቸው</p>
+  <p style="margin-top:.4rem">ጥያቄ? <a href="https://wa.me/818043611641">WhatsApp / Telegram +81 80-4361-1641</a></p>
 </footer>
 
-<!-- FLOATING BUTTON -->
-<a class="float" href="https://wa.me/818043611641" target="_blank">💬</a>
+<!-- FLOATING -->
+<a class="fab" href="https://wa.me/818043611641" target="_blank">💬</a>
 
 <!-- MODAL -->
 <div class="ov" id="modal">
-    <div class="modal">
-        <button class="mx" onclick="cls()">×</button>
-        <div class="m-ico">🎉</div>
-        <h2>ምዝገባው ተጠናቋል!</h2>
-        <p class="m-sub">
-            ክፍያ ፈጽመው ወዲያው WhatsApp ወይም Telegram ላይ ስክሪንሾቱን ላኩልን።<br>
-            📱 <strong style="color:var(--gold)">+81 80-4361-1641</strong><br>
-            screenshot እንደደረሰን ቀጠሮ እናሲዝሎታለን 🙏
-        </p>
-        <div class="pbox">
-            <div class="pbox-h">🇪🇹 ኢትዮጵያ · Ethiopia — Bank Transfer</div>
-            <div class="pr"><span class="pl">ባንክ / Bank</span><span class="pv">አቢሲኒያ ባንክ</span></div>
-            <div class="pr">
-                <span class="pl">አካውንት / Account</span>
-                <span class="pv">205710175</span>
-                <button class="cpb" id="cpb" onclick="cp()">ኮፒ</button>
-            </div>
-            <div class="pr"><span class="pl">ስም / Name</span><span class="pv">Noah</span></div>
-            <div class="pr"><span class="pl">መጠን / Amount</span><span class="pv big" id="mamt">—</span></div>
-        </div>
-        <div class="div"><hr><span>ወይም · OR</span><hr></div>
-        <div class="pbox">
-            <div class="pbox-h">🌍 ውጭ ሀገር · Outside Ethiopia — Wise</div>
-            <div class="pr">
-                <span class="pl">Wise ዝርዝር</span>
-                <span class="pv" style="color:var(--dim);font-size:.82rem">WhatsApp ወይም Telegram ላይ ጻፉልን</span>
-            </div>
-        </div>
-        <div class="mnote">
-            <strong>አስፈላጊ:</strong> ቴሌ ብር ወይም ባንክ screenshot ለ
-            <strong>WhatsApp / Telegram +81 80-4361-1641</strong> ላኩ።
-            screenshot እንደደረሰን ቀጠሮ እናሲዝሎታለን።
-        </div>
+  <div class="modal">
+    <button class="mx" onclick="cls()">×</button>
+    <div class="m-ico">🎉</div>
+    <h2>ምዝገባው ተጠናቋል!</h2>
+    <p class="m-sub">
+      ክፍያ ፈጽመው ወዲያው WhatsApp ወይም Telegram ላይ ስክሪንሾቱን ላኩልን።<br>
+      📱 <strong style="color:var(--gold)">+81 80-4361-1641</strong><br>
+      screenshot እንደደረሰን ቀጠሮ እናሲዝሎታለን 🙏
+    </p>
+    <div class="pbox">
+      <div class="pbox-h">🇪🇹 ኢትዮጵያ · Ethiopia — Bank Transfer</div>
+      <div class="pr"><span class="pl">ባንክ / Bank</span><span class="pv">አቢሲኒያ ባንክ</span></div>
+      <div class="pr">
+        <span class="pl">አካውንት / Account</span>
+        <span class="pv">205710175</span>
+        <button class="cpb" id="cpb" onclick="cp()">ኮፒ</button>
+      </div>
+      <div class="pr"><span class="pl">ስም / Name</span><span class="pv">Noah</span></div>
+      <div class="pr"><span class="pl">መጠን / Amount</span><span class="pv big" id="mamt">—</span></div>
     </div>
+    <div class="dvd"><hr><span>ወይም · OR</span><hr></div>
+    <div class="pbox">
+      <div class="pbox-h">🌍 ውጭ ሀገር · Outside Ethiopia — Wise</div>
+      <div class="pr">
+        <span class="pl">Wise ዝርዝር</span>
+        <span class="pv" style="color:var(--muted);font-size:.82rem">WhatsApp ወይም Telegram ላይ ጻፉልን</span>
+      </div>
+    </div>
+    <div class="mnote">
+      <strong>አስፈላጊ:</strong> ቴሌ ብር ወይም ባንክ screenshot ለ
+      <strong>WhatsApp / Telegram +81 80-4361-1641</strong> ላኩ።
+      screenshot እንደደረሰን ቀጠሮ እናሲዝሎታለን።
+    </div>
+  </div>
 </div>
 
 <script>
-    // Scroll reveal
-    const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('on') }), {threshold:.1});
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v')}),{threshold:.1});
+  document.querySelectorAll('.r').forEach(el=>obs.observe(el));
 
-    const PKGS = {
-        '40min':  {label:'40 ደቂቃ / 40 Minutes', price:5000},
-        '1hr':    {label:'1 ሰዓት / 1 Hour',        price:6000},
-        '1.5hr':  {label:'1:30 ሰዓት / 1.5 Hours', price:10000},
-    };
-    let sel = null;
+  const PKGS={
+    '40min':{label:'40 ደቂቃ / 40 Minutes',price:5000},
+    '1hr':{label:'1 ሰዓት / 1 Hour',price:6000},
+    '1.5hr':{label:'1:30 ሰዓት / 1.5 Hours',price:10000},
+  };
+  let sel=null;
 
-    function pick(id,label,price){
-        sel={id,label,price};
-        document.getElementById('spbN').innerHTML=label+'<small>ምርጫህ ነው · Selected</small>';
-        document.getElementById('spbP').textContent=price.toLocaleString()+' ብር';
-        const s=document.getElementById('fs');
-        for(const o of s.options){if(o.value.startsWith(id+'|')){s.value=o.value;break}}
-        document.getElementById('book').scrollIntoView({behavior:'smooth'});
-    }
+  function pick(id,label,price){
+    sel={id,label,price};
+    document.getElementById('spbN').innerHTML=label+'<small>ምርጫህ ነው · Selected</small>';
+    document.getElementById('spbP').textContent=price.toLocaleString()+' ብር';
+    const s=document.getElementById('fs');
+    for(const o of s.options){if(o.value.startsWith(id+'|')){s.value=o.value;break}}
+    document.getElementById('book').scrollIntoView({behavior:'smooth'});
+  }
 
-    function syncs(){
-        const v=document.getElementById('fs').value; if(!v)return;
-        const [id]=v.split('|'); const p=PKGS[id]; if(!p)return;
-        sel={id,...p};
-        document.getElementById('spbN').innerHTML=p.label+'<small>ምርጫህ ነው · Selected</small>';
-        document.getElementById('spbP').textContent=p.price.toLocaleString()+' ብር';
-    }
+  function syncs(){
+    const v=document.getElementById('fs').value;if(!v)return;
+    const[id]=v.split('|');const p=PKGS[id];if(!p)return;
+    sel={id,...p};
+    document.getElementById('spbN').innerHTML=p.label+'<small>ምርጫህ ነው · Selected</small>';
+    document.getElementById('spbP').textContent=p.price.toLocaleString()+' ብር';
+  }
 
-    function sub(e){
-        e.preventDefault();
-        if(!sel){syncs()}
-        if(!sel){alert('እባክዎ ጥቅሉን ይምረጡ / Please select a package');return}
-        document.getElementById('mamt').textContent=sel.price.toLocaleString()+' ብር (ETB)';
-        document.getElementById('modal').classList.add('on');
-    }
+  function fsub(e){
+    e.preventDefault();
+    if(!sel)syncs();
+    if(!sel){alert('እባክዎ ጥቅሉን ይምረጡ / Please select a package');return}
+    document.getElementById('mamt').textContent=sel.price.toLocaleString()+' ብር (ETB)';
+    document.getElementById('modal').classList.add('on');
+  }
 
-    function cls(){document.getElementById('modal').classList.remove('on')}
+  function cls(){document.getElementById('modal').classList.remove('on')}
 
-    function cp(){
-        navigator.clipboard.writeText('205710175').then(()=>{
-            const b=document.getElementById('cpb');
-            b.textContent='✓ ተቀድቷል';
-            setTimeout(()=>b.textContent='ኮፒ',2000);
-        });
-    }
+  function cp(){
+    navigator.clipboard.writeText('205710175').then(()=>{
+      const b=document.getElementById('cpb');
+      b.textContent='✓ ተቀድቷል';
+      setTimeout(()=>b.textContent='ኮፒ',2000);
+    });
+  }
 
-    document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')cls()});
+  document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')cls()});
 </script>
 </body>
 </html>
