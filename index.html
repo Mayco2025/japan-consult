@@ -417,9 +417,9 @@ footer a{color:var(--gold);text-decoration:none}
     <p class="sec-sub">ለጥያቄህ ተስማሚ ጊዜ ምረጥ — ሁሉም ቀጥታ 1-on-1 ምክር ያካትታሉ</p>
   </div>
   <div class="pkg-grid">
-    <div class="pkg r" onclick="pick('40min','40 ደቂቃ / 40 Minutes',5000)">
+    <div class="pkg r" onclick="pick('40min','40 ደቂቃ / 40 Minutes',4000)">
       <div class="pkg-lbl">01 · Starter</div>
-      <div class="pkg-price"><span class="n">5,000</span><span class="u">ብር / ETB</span></div>
+      <div class="pkg-price"><span class="n">4,000</span><span class="u">ብር / ETB</span></div>
       <div class="pkg-time">⏱ 40 ደቂቃ · 40 MIN</div>
       <p class="pkg-desc">ፈጣን እና ቀጥተኛ ጥያቄዎች ላላቸው ተስማሚ</p>
       <ul class="pkg-list">
@@ -442,9 +442,9 @@ footer a{color:var(--gold);text-decoration:none}
       </ul>
       <button class="pkg-cta">ይምረጡ / Select →</button>
     </div>
-    <div class="pkg r" onclick="pick('1.5hr','1:30 ሰዓት / 1.5 Hours',10000)">
+    <div class="pkg r" onclick="pick('1.5hr','1:30 ሰዓት / 1.5 Hours',8000)">
       <div class="pkg-lbl">03 · Premium</div>
-      <div class="pkg-price"><span class="n">10,000</span><span class="u">ብር / ETB</span></div>
+      <div class="pkg-price"><span class="n">8,000</span><span class="u">ብር / ETB</span></div>
       <div class="pkg-time">⏱ 1:30 ሰዓት · 1.5 HRS</div>
       <p class="pkg-desc">ጥልቅ ዕቅድ እና ሙሉ ድጋፍ ለሚፈልጉ</p>
       <ul class="pkg-list">
@@ -510,9 +510,9 @@ footer a{color:var(--gold);text-decoration:none}
             <label>ጥቅሉን ምረጥ / Package *</label>
             <select id="fs" required onchange="syncs()">
               <option value="">-- ጥቅሉን ምረጥ --</option>
-              <option value="40min|40 ደቂቃ / 40 Minutes|5000">40 ደቂቃ (40 min) — 5,000 ብር</option>
+              <option value="40min|40 ደቂቃ / 40 Minutes|4000">40 ደቂቃ (40 min) — 4,000 ብር</option>
               <option value="1hr|1 ሰዓት / 1 Hour|6000">1 ሰዓት (1 hr) — 6,000 ብር</option>
-              <option value="1.5hr|1:30 ሰዓት / 1.5 Hours|10000">1:30 ሰዓት (1.5 hrs) — 10,000 ብር</option>
+              <option value="1.5hr|1:30 ሰዓት / 1.5 Hours|8000">1:30 ሰዓት (1.5 hrs) — 8,000 ብር</option>
             </select>
           </div>
           <div class="fg"><label>ምክር የሚፈልጉት ስለ ምንድን ነው?</label><textarea id="ft" rows="3" placeholder="ቪዛ? ሥራ? ትምህርት? ኑሮ? ቋንቋ?"></textarea></div>
@@ -564,9 +564,9 @@ footer a{color:var(--gold);text-decoration:none}
   document.querySelectorAll('.r').forEach(el=>obs.observe(el));
 
   const PKGS={
-    '40min':{label:'40 ደቂቃ / 40 Minutes',price:5000},
+    '40min':{label:'40 ደቂቃ / 40 Minutes',price:4000},
     '1hr':{label:'1 ሰዓት / 1 Hour',price:6000},
-    '1.5hr':{label:'1:30 ሰዓት / 1.5 Hours',price:10000},
+    '1.5hr':{label:'1:30 ሰዓት / 1.5 Hours',price:8000},
   };
   let sel=null;
 
