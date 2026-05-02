@@ -3,422 +3,521 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noah Japan Consultation | የጃፓን ምክርና ድጋፍ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Japan Consultation Consultation | የጃፓን ምክርና ድጋፍ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg: #080810;
-            --bg2: #0f0f1a;
-            --card: #13131f;
-            --border: #2a2a3e;
-            --gold: #d4a843;
-            --gold-light: #f0c866;
-            --red: #bc2a2a;
-            --white: #f5f5f5;
-            --gray: #8888a0;
-            --text: #e8e8f0;
+            --gold: #e8b84b;
+            --gold2: #f5d37a;
+            --red: #e63946;
+            --dark: #06060f;
+            --dark2: #0c0c1a;
+            --card: #111120;
+            --border: #ffffff12;
+            --border2: #ffffff1f;
+            --text: #f0f0f8;
+            --muted: #9090b0;
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            background: var(--bg);
+            background: var(--dark);
             color: var(--text);
             font-family: 'Inter', 'Noto Sans Ethiopic', sans-serif;
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* ── NAV ── */
         nav {
-            position: fixed;
-            top: 0; width: 100%;
-            background: rgba(8,8,16,0.92);
-            backdrop-filter: blur(12px);
+            position: fixed; top: 0; width: 100%;
+            z-index: 200;
+            padding: 1.1rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(6,6,15,0.75);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            z-index: 100;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            transition: background 0.3s;
         }
-        .nav-logo { font-size: 1.2rem; font-weight: 700; color: var(--gold); }
-        .nav-logo span { color: var(--white); }
-        .nav-cta {
+        .logo {
+            font-size: 1.2rem; font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+        .logo span { color: var(--gold); }
+        .logo em { color: #fff; font-style: normal; }
+        .nav-btn {
             background: var(--gold); color: #000;
-            padding: 0.5rem 1.25rem; border-radius: 6px;
-            text-decoration: none; font-weight: 600; font-size: 0.875rem;
+            padding: 0.55rem 1.4rem; border-radius: 50px;
+            text-decoration: none; font-weight: 700; font-size: 0.875rem;
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
-            transition: background 0.2s;
+            transition: all 0.2s; white-space: nowrap;
         }
-        .nav-cta:hover { background: var(--gold-light); }
+        .nav-btn:hover { background: var(--gold2); transform: translateY(-1px); }
 
         /* ── HERO ── */
         .hero {
+            position: relative;
             min-height: 100vh;
             display: flex; align-items: center; justify-content: center;
             text-align: center;
-            padding: 6rem 2rem 4rem;
-            position: relative; overflow: hidden;
+            padding: 7rem 1.5rem 5rem;
+            overflow: hidden;
         }
-        .hero::before {
-            content: '';
+        .hero-bg {
             position: absolute; inset: 0;
-            background:
-                radial-gradient(ellipse at 50% 50%, rgba(188,42,42,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(212,168,67,0.07) 0%, transparent 50%);
+            background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.05);
+            transition: transform 8s ease;
         }
+        .hero-bg.loaded { transform: scale(1); }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(6,6,15,0.55) 0%,
+                rgba(6,6,15,0.45) 40%,
+                rgba(6,6,15,0.85) 80%,
+                rgba(6,6,15,1) 100%
+            );
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 780px; margin: 0 auto; }
         .hero-badge {
-            display: inline-block;
-            background: rgba(212,168,67,0.1);
-            border: 1px solid rgba(212,168,67,0.3);
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(232,184,75,0.15);
+            border: 1px solid rgba(232,184,75,0.4);
             color: var(--gold);
-            padding: 0.35rem 1rem; border-radius: 100px;
+            padding: 0.4rem 1.1rem; border-radius: 50px;
             font-size: 0.8rem; font-weight: 600;
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(8px);
         }
         .hero h1 {
-            font-size: clamp(2rem, 6vw, 3.8rem);
-            font-weight: 800; line-height: 1.15;
-            margin-bottom: 0.5rem;
+            font-size: clamp(2rem, 5.5vw, 3.8rem);
+            font-weight: 800; line-height: 1.2;
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.5);
         }
-        .hero h1 .highlight { color: var(--gold); }
-        .hero h1 .en {
-            font-size: 0.45em; color: var(--gray);
-            display: block; font-weight: 400; margin-top: 0.5rem;
-            font-family: 'Inter', sans-serif;
+        .hero h1 .gold { color: var(--gold); }
+        .hero h1 .sub {
+            display: block; font-size: 0.4em;
+            color: rgba(255,255,255,0.55); font-weight: 400;
+            margin-top: 0.6rem; font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
         }
-        .hero-sub {
-            font-size: 1.05rem; color: var(--gray);
-            margin: 1.5rem auto; max-width: 540px;
+        .hero-desc {
+            margin: 1.8rem auto 0; max-width: 560px;
+            font-size: 1rem; line-height: 1.9;
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
-            line-height: 1.9;
+            color: rgba(255,255,255,0.72);
         }
-        .hero-actions {
-            display: flex; gap: 1rem;
-            justify-content: center; flex-wrap: wrap;
-            margin-top: 2rem;
+        .hero-btns {
+            display: flex; gap: 1rem; justify-content: center;
+            flex-wrap: wrap; margin-top: 2.5rem;
         }
-        .btn-primary {
+        .btn-gold {
             background: var(--gold); color: #000;
-            padding: 0.9rem 2rem; border-radius: 8px;
+            padding: 0.95rem 2.2rem; border-radius: 50px;
             text-decoration: none; font-weight: 700; font-size: 1rem;
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
-            transition: all 0.2s;
+            transition: all 0.25s; box-shadow: 0 4px 24px rgba(232,184,75,0.35);
         }
-        .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-        .btn-ghost {
-            background: transparent; color: var(--text);
-            padding: 0.9rem 2rem; border-radius: 8px;
+        .btn-gold:hover { background: var(--gold2); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(232,184,75,0.45); }
+        .btn-outline {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: #fff;
+            padding: 0.95rem 2.2rem; border-radius: 50px;
             text-decoration: none; font-weight: 600; font-size: 1rem;
-            border: 1px solid var(--border);
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
-            transition: all 0.2s;
+            transition: all 0.25s;
         }
-        .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
-        .flag-line {
-            display: flex; align-items: center; justify-content: center;
-            gap: 1rem; margin-top: 2.5rem; color: var(--gray); font-size: 0.8rem;
+        .btn-outline:hover { background: rgba(255,255,255,0.15); transform: translateY(-3px); }
+        .hero-stats {
+            display: flex; gap: 2.5rem; justify-content: center;
+            margin-top: 3.5rem; flex-wrap: wrap;
         }
-        .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); }
+        .hs {
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .hs-num { font-size: 1.6rem; font-weight: 800; color: var(--gold); }
+        .hs-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
+        .scroll-hint {
+            position: absolute; bottom: 2rem; left: 50%;
+            transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+            color: rgba(255,255,255,0.35); font-size: 0.72rem; z-index: 2;
+            animation: bounce 2s infinite;
+        }
+        .scroll-hint svg { opacity: 0.4; }
+        @keyframes bounce {
+            0%,100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
 
-        /* ── SHARED ── */
-        section { padding: 5rem 2rem; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        .sec-label {
-            text-align: center; color: var(--gold);
-            font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
-            text-transform: uppercase; margin-bottom: 0.6rem;
+        /* ── SECTION SHARED ── */
+        section { padding: 5.5rem 1.5rem; }
+        .container { max-width: 1040px; margin: 0 auto; }
+        .chip {
+            display: inline-block;
+            color: var(--gold); font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            margin-bottom: 0.75rem;
         }
-        .sec-title {
-            text-align: center;
-            font-size: clamp(1.6rem, 4vw, 2.3rem);
-            font-weight: 700; margin-bottom: 0.75rem;
+        .section-title {
+            font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 800;
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
+            margin-bottom: 0.75rem;
         }
-        .sec-sub {
-            text-align: center; color: var(--gray);
-            max-width: 480px; margin: 0 auto 3rem;
+        .section-sub {
+            color: var(--muted); max-width: 460px;
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
             line-height: 1.8; font-size: 0.95rem;
         }
+        .center { text-align: center; }
+        .center .section-sub { margin: 0 auto 3rem; }
 
         /* ── ABOUT ── */
-        .about-grid {
+        #about { background: var(--dark2); }
+        .about-wrap {
             display: grid; grid-template-columns: 1fr 1fr;
-            gap: 3rem; align-items: center;
+            gap: 4rem; align-items: center;
         }
-        @media (max-width: 640px) { .about-grid { grid-template-columns: 1fr; } }
-        .about-avatar {
-            width: 100%; max-width: 260px; aspect-ratio: 1;
-            border-radius: 20px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 5rem; margin: 0 auto;
+        @media (max-width: 680px) { .about-wrap { grid-template-columns: 1fr; gap: 2rem; } }
+        .about-img-wrap { position: relative; }
+        .about-img {
+            width: 100%; border-radius: 20px;
+            aspect-ratio: 4/5; object-fit: cover;
+            display: block;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.5);
         }
+        .about-img-badge {
+            position: absolute; bottom: 1.5rem; left: 1.5rem;
+            background: rgba(6,6,15,0.85); backdrop-filter: blur(12px);
+            border: 1px solid var(--border2);
+            border-radius: 12px; padding: 0.85rem 1.1rem;
+            display: flex; align-items: center; gap: 0.65rem;
+        }
+        .aib-dot { width: 10px; height: 10px; border-radius: 50%; background: #2ecc71; flex-shrink: 0; box-shadow: 0 0 8px #2ecc71; }
+        .aib-text { font-size: 0.82rem; font-weight: 600; font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
         .about-text h2 {
-            font-size: 1.7rem; font-weight: 700; margin-bottom: 1rem;
-            font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
+            font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 800;
+            font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; margin-bottom: 1.25rem;
         }
-        .about-text p {
-            color: var(--gray); margin-bottom: 1rem;
-            font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
-            line-height: 1.9;
-        }
-        .stats { display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
-        .stat .num { font-size: 1.7rem; font-weight: 800; color: var(--gold); }
-        .stat .lbl { font-size: 0.75rem; color: var(--gray); font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
+        .about-stats { display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; }
+        .stat { text-align: left; }
+        .stat .n { font-size: 2rem; font-weight: 800; color: var(--gold); line-height: 1; }
+        .stat .l { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
+        .stat-divider { width: 1px; background: var(--border2); align-self: stretch; }
 
         /* ── PACKAGES ── */
-        #packages { background: var(--bg2); }
+        #packages { background: var(--dark); }
         .pkg-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            display: grid; grid-template-columns: repeat(3,1fr);
+            gap: 1.5rem; margin-top: 3rem;
         }
-        @media (max-width: 700px) { .pkg-grid { grid-template-columns: 1fr; } }
-        .pkg-card {
+        @media (max-width: 720px) { .pkg-grid { grid-template-columns: 1fr; } }
+        .pkg {
             background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px; padding: 2rem;
+            border: 1px solid var(--border2);
+            border-radius: 20px; padding: 2rem;
             position: relative; cursor: pointer;
             transition: all 0.3s;
+            overflow: hidden;
         }
-        .pkg-card:hover { border-color: var(--gold); transform: translateY(-4px); }
-        .pkg-card.featured {
-            border-color: var(--gold);
-            background: linear-gradient(135deg, #13131f 0%, #1a1a2e 100%);
+        .pkg::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(232,184,75,0.4), transparent);
+            opacity: 0; transition: opacity 0.3s;
         }
-        .pkg-card.featured::before {
-            content: '⭐ ምርጥ ምርጫ';
-            position: absolute; top: -12px; left: 50%;
-            transform: translateX(-50%);
+        .pkg:hover { transform: translateY(-6px); border-color: rgba(232,184,75,0.35); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+        .pkg:hover::before { opacity: 1; }
+        .pkg.featured {
+            background: linear-gradient(145deg, #161628 0%, #1a1a35 100%);
+            border-color: rgba(232,184,75,0.5);
+            box-shadow: 0 0 0 1px rgba(232,184,75,0.15), 0 20px 60px rgba(0,0,0,0.4);
+        }
+        .pkg.featured::before { opacity: 1; }
+        .popular-badge {
+            position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
             background: var(--gold); color: #000;
-            padding: 0.2rem 0.9rem; border-radius: 100px;
-            font-size: 0.72rem; font-weight: 700; white-space: nowrap;
+            padding: 0.3rem 1rem; border-radius: 0 0 10px 10px;
+            font-size: 0.72rem; font-weight: 800; white-space: nowrap;
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
+            letter-spacing: 0.3px;
         }
-        .pkg-dur { font-size: 0.82rem; color: var(--gold); font-weight: 600; margin-bottom: 0.5rem; }
-        .pkg-price { font-size: 2.3rem; font-weight: 800; color: var(--white); margin-bottom: 0.25rem; }
-        .pkg-price span { font-size: 0.9rem; color: var(--gray); font-weight: 400; }
-        .pkg-desc {
-            color: var(--gray); font-size: 0.875rem;
-            margin: 0.9rem 0 1.25rem;
-            font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
-            line-height: 1.7;
+        .pkg-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .pkg-time { font-size: 0.8rem; color: var(--gold); font-weight: 700; letter-spacing: 0.5px; margin-bottom: 0.6rem; }
+        .pkg-price-wrap { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 0.5rem; }
+        .pkg-price-num { font-size: 2.6rem; font-weight: 800; color: #fff; line-height: 1; }
+        .pkg-price-unit { font-size: 0.9rem; color: var(--muted); }
+        .pkg-desc { font-size: 0.875rem; color: var(--muted); margin: 1rem 0 1.25rem; font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; line-height: 1.7; }
+        .pkg-list { list-style: none; margin-bottom: 1.75rem; }
+        .pkg-list li {
+            font-size: 0.85rem; color: var(--muted);
+            padding: 0.45rem 0; display: flex; align-items: center; gap: 0.6rem;
+            border-bottom: 1px solid var(--border); font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
         }
-        .pkg-features { list-style: none; margin-bottom: 1.5rem; }
-        .pkg-features li {
-            font-size: 0.85rem; color: var(--gray);
-            padding: 0.4rem 0; display: flex; align-items: center; gap: 0.5rem;
-            font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
-        }
-        .pkg-features li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
-        .pkg-btn {
-            width: 100%; padding: 0.85rem; border-radius: 8px;
+        .pkg-list li:last-child { border-bottom: none; }
+        .pkg-list li::before { content: '✦'; color: var(--gold); font-size: 0.65rem; flex-shrink: 0; }
+        .pkg-cta {
+            width: 100%; padding: 0.9rem; border-radius: 12px;
             border: none; cursor: pointer; font-weight: 700; font-size: 0.9rem;
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
             transition: all 0.2s;
         }
-        .pkg-card.featured .pkg-btn { background: var(--gold); color: #000; }
-        .pkg-card:not(.featured) .pkg-btn {
-            background: transparent; color: var(--gold);
-            border: 1px solid var(--gold);
-        }
-        .pkg-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+        .pkg.featured .pkg-cta { background: var(--gold); color: #000; }
+        .pkg:not(.featured) .pkg-cta { background: rgba(232,184,75,0.1); color: var(--gold); border: 1px solid rgba(232,184,75,0.3); }
+        .pkg-cta:hover { opacity: 0.88; transform: translateY(-1px); }
 
         /* ── HOW IT WORKS ── */
-        .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+        #how {
+            background: var(--dark2);
+            position: relative; overflow: hidden;
+        }
+        #how::before {
+            content: '';
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 600px; height: 600px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(232,184,75,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 3rem; }
         @media (max-width: 640px) { .steps { grid-template-columns: 1fr; } }
-        .step { text-align: center; padding: 1.5rem; }
-        .step-num {
-            width: 52px; height: 52px; border-radius: 50%;
-            background: rgba(212,168,67,0.1);
-            border: 1px solid rgba(212,168,67,0.3);
-            color: var(--gold); font-size: 1.2rem; font-weight: 700;
+        .step {
+            background: var(--card); border: 1px solid var(--border2);
+            border-radius: 16px; padding: 2rem 1.75rem; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .step-num-wrap {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: rgba(232,184,75,0.1);
+            border: 1px solid rgba(232,184,75,0.3);
             display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 1rem;
+            margin: 0 auto 1.25rem;
+            font-size: 1.3rem; font-weight: 800; color: var(--gold);
         }
-        .step h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
-        .step p { font-size: 0.85rem; color: var(--gray); font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; line-height: 1.7; }
+        .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
+        .step p { font-size: 0.85rem; color: var(--muted); font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; line-height: 1.75; }
 
-        /* ── BOOKING FORM ── */
-        #book { background: var(--bg2); }
-        .form-card {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 16px; padding: 2.5rem;
-            max-width: 540px; margin: 0 auto;
+        /* ── BOOKING ── */
+        #book { background: var(--dark); }
+        .book-wrap {
+            display: grid; grid-template-columns: 1fr 1.1fr;
+            gap: 4rem; align-items: start;
         }
-        .selected-pkg-bar {
-            background: rgba(212,168,67,0.06);
-            border: 1px solid rgba(212,168,67,0.2);
-            border-radius: 10px; padding: 1rem 1.25rem;
+        @media (max-width: 720px) { .book-wrap { grid-template-columns: 1fr; gap: 2rem; } }
+        .book-info h2 { font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 800; font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; margin-bottom: 1rem; }
+        .book-info p { color: var(--muted); font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; line-height: 1.8; font-size: 0.95rem; margin-bottom: 2rem; }
+        .book-info-img {
+            width: 100%; border-radius: 16px;
+            aspect-ratio: 16/10; object-fit: cover;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+        }
+        .form-card {
+            background: var(--card); border: 1px solid var(--border2);
+            border-radius: 20px; padding: 2.25rem;
+        }
+        .spbar {
+            background: rgba(232,184,75,0.07); border: 1px solid rgba(232,184,75,0.2);
+            border-radius: 12px; padding: 1rem 1.25rem;
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 1.75rem;
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
         }
-        .selected-pkg-bar .spb-name { font-weight: 600; color: var(--white); font-size: 0.9rem; }
-        .selected-pkg-bar .spb-name small { display: block; color: var(--gray); font-size: 0.75rem; font-weight: 400; }
-        .selected-pkg-bar .spb-price { font-size: 1.25rem; font-weight: 800; color: var(--gold); }
-        .form-group { margin-bottom: 1.2rem; }
-        .form-group label {
-            display: block; font-size: 0.85rem; font-weight: 600;
-            margin-bottom: 0.45rem; color: var(--text);
+        .spbar-name { font-weight: 600; color: #fff; font-size: 0.9rem; }
+        .spbar-name small { display: block; color: var(--muted); font-size: 0.75rem; font-weight: 400; margin-top: 0.1rem; }
+        .spbar-price { font-size: 1.2rem; font-weight: 800; color: var(--gold); }
+        .fgrp { margin-bottom: 1.1rem; }
+        .fgrp label {
+            display: block; font-size: 0.82rem; font-weight: 600;
+            color: rgba(255,255,255,0.7); margin-bottom: 0.4rem;
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
         }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .fgrp input, .fgrp select, .fgrp textarea {
             width: 100%; padding: 0.8rem 1rem;
-            background: var(--bg); border: 1px solid var(--border);
-            border-radius: 8px; color: var(--text); font-size: 0.95rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border2); border-radius: 10px;
+            color: var(--text); font-size: 0.925rem;
             font-family: 'Inter', 'Noto Sans Ethiopic', sans-serif;
             transition: border-color 0.2s;
+            -webkit-appearance: none;
         }
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus { outline: none; border-color: var(--gold); }
-        .form-group select option { background: var(--bg2); }
-        .form-submit {
-            width: 100%; padding: 1rem;
+        .fgrp input:focus, .fgrp select:focus, .fgrp textarea:focus {
+            outline: none; border-color: rgba(232,184,75,0.6);
+            background: rgba(232,184,75,0.04);
+        }
+        .fgrp select option { background: #111120; }
+        .fgrp textarea { resize: vertical; }
+        .fsubmit {
+            width: 100%; padding: 1rem; border-radius: 12px; border: none;
             background: var(--gold); color: #000;
-            border: none; border-radius: 8px;
             font-size: 1rem; font-weight: 700; cursor: pointer;
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
-            transition: all 0.2s; margin-top: 0.5rem;
+            transition: all 0.25s; margin-top: 0.5rem;
+            box-shadow: 0 4px 20px rgba(232,184,75,0.3);
         }
-        .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+        .fsubmit:hover { background: var(--gold2); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,184,75,0.4); }
 
         /* ── MODAL ── */
-        .modal-overlay {
+        .overlay {
             position: fixed; inset: 0;
-            background: rgba(0,0,0,0.82);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 500;
             display: none; align-items: center; justify-content: center;
             padding: 1rem;
         }
-        .modal-overlay.open { display: flex; }
+        .overlay.open { display: flex; }
         .modal {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 16px; padding: 2.25rem;
+            background: var(--card); border: 1px solid var(--border2);
+            border-radius: 20px; padding: 2.25rem;
             max-width: 460px; width: 100%; position: relative;
             max-height: 90vh; overflow-y: auto;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.6);
         }
-        .modal-close {
-            position: absolute; top: 1rem; right: 1rem;
-            background: transparent; border: none;
-            color: var(--gray); font-size: 1.5rem; cursor: pointer;
+        .modal-x {
+            position: absolute; top: 1.1rem; right: 1.1rem;
+            background: rgba(255,255,255,0.07); border: 1px solid var(--border2);
+            color: var(--muted); width: 32px; height: 32px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 1.1rem; line-height: 1; transition: all 0.2s;
         }
-        .modal h2 {
-            font-size: 1.35rem; font-weight: 700; margin-bottom: 0.4rem;
-            font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
+        .modal-x:hover { background: rgba(255,255,255,0.12); color: #fff; }
+        .modal-check {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: rgba(46,204,113,0.12); border: 1px solid rgba(46,204,113,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 1.25rem;
         }
-        .modal .msub {
-            color: var(--gray); font-size: 0.875rem; margin-bottom: 1.5rem;
-            font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; line-height: 1.7;
+        .modal h2 { font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
+        .modal-sub { color: var(--muted); font-size: 0.875rem; margin-bottom: 1.75rem; font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; line-height: 1.75; }
+        .pbox {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border2);
+            border-radius: 14px; padding: 1.25rem; margin-bottom: 1rem;
         }
-        .pay-box {
-            background: var(--bg); border: 1px solid var(--border);
-            border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;
-        }
-        .pay-box-label {
-            font-size: 0.75rem; color: var(--gold); font-weight: 700;
-            letter-spacing: 1px; text-transform: uppercase;
-            margin-bottom: 1rem;
-            font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
-        }
-        .pay-row {
+        .pbox-title { font-size: 0.72rem; color: var(--gold); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem; font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
+        .prow {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0.55rem 0; border-bottom: 1px solid var(--border);
-            font-size: 0.875rem;
+            padding: 0.55rem 0; border-bottom: 1px solid var(--border); font-size: 0.875rem;
         }
-        .pay-row:last-child { border-bottom: none; }
-        .pay-row .pl { color: var(--gray); font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
-        .pay-row .pv { font-weight: 600; color: var(--white); font-family: 'Inter', monospace; }
-        .pay-row .pv.big { color: var(--gold); font-size: 1.1rem; }
+        .prow:last-child { border-bottom: none; }
+        .prow .pl { color: var(--muted); font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
+        .prow .pv { font-weight: 600; color: #fff; font-family: 'Inter', monospace; }
+        .prow .pv.big { color: var(--gold); font-size: 1.1rem; }
         .copy-btn {
-            background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.3);
-            color: var(--gold); padding: 0.2rem 0.6rem; border-radius: 4px;
+            background: rgba(232,184,75,0.1); border: 1px solid rgba(232,184,75,0.3);
+            color: var(--gold); padding: 0.2rem 0.65rem; border-radius: 6px;
             font-size: 0.72rem; cursor: pointer; font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
         }
-        .divider {
-            display: flex; align-items: center; gap: 0.75rem; margin: 1rem 0;
-        }
+        .copy-btn:hover { background: rgba(232,184,75,0.2); }
+        .divider { display: flex; align-items: center; gap: 0.75rem; margin: 1rem 0; }
         .divider hr { flex: 1; border: none; border-top: 1px solid var(--border); }
-        .divider span { color: var(--gray); font-size: 0.8rem; font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
-        .note-box {
-            background: rgba(212,168,67,0.05);
-            border: 1px solid rgba(212,168,67,0.2);
-            border-radius: 10px; padding: 1rem 1.1rem;
-            font-size: 0.85rem; color: var(--gray);
+        .divider span { color: var(--muted); font-size: 0.78rem; font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
+        .note {
+            background: rgba(232,184,75,0.05); border: 1px solid rgba(232,184,75,0.18);
+            border-radius: 12px; padding: 1rem 1.1rem;
+            font-size: 0.84rem; color: var(--muted);
             font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; line-height: 1.8;
         }
-        .note-box strong { color: var(--gold); }
+        .note strong { color: var(--gold); }
 
         /* ── FOOTER ── */
         footer {
-            background: var(--bg2); border-top: 1px solid var(--border);
-            padding: 2rem; text-align: center;
-            color: var(--gray); font-size: 0.85rem;
-            font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
+            background: #030308;
+            border-top: 1px solid var(--border);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
         }
+        .footer-logo { font-size: 1.1rem; font-weight: 800; color: var(--gold); margin-bottom: 0.5rem; }
+        footer p { color: var(--muted); font-size: 0.82rem; font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif; }
         footer a { color: var(--gold); text-decoration: none; }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
     </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-    <div class="nav-logo">Noah <span>Japan</span></div>
-    <a href="#book" class="nav-cta">አሁን ቡክ አድርግ</a>
+    <div class="logo"><span>Noah</span> <em>Japan</em></div>
+    <a href="#book" class="nav-btn">አሁን ቡክ አድርግ</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-    <div class="container" style="position:relative;z-index:1;">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
         <div class="hero-badge">🇯🇵 ጃፓን ውስጥ የምኖር ኢትዮጵያዊ · Ethiopian Living in Japan</div>
         <h1>
             ወደ ጃፓን መምጣት ለምትፈልጉ<br>
-            <span class="highlight">ሙሉ ምክር</span> እንዲሁም ጥያቄዎቻችሁ በሙሉ ይመለሱላችዋል።
-            <span class="en">Get direct, real advice from someone living in Japan</span>
+            <span class="gold">ሙሉ ምክር</span> እንዲሁም ጥያቄዎቻችሁ<br>
+            በሙሉ ይመለሱላችዋል።
+            <span class="sub">Real answers from someone actually living in Japan</span>
         </h1>
-        <p class="hero-sub">
+        <p class="hero-desc">
             ስለ ቪዛ ፤ ስራ ፤ ቋንቋ ፤ ኑሮ ፤ ማንኛውም ጥያቄያችሁ ይመለስላችዋል።<br>
             ጃፓን እንደመኖራችን ሙሉ በሙሉ ትክክለኛ መረጃ ታገኛላችሁ።
         </p>
-        <div class="hero-actions">
-            <a href="#packages" class="btn-primary">ዋጋ ይመልከቱ / View Packages</a>
-            <a href="#how" class="btn-ghost">አመልክት</a>
+        <div class="hero-btns">
+            <a href="#packages" class="btn-gold">ዋጋ ይመልከቱ / View Packages</a>
+            <a href="#how" class="btn-outline">አመልክት</a>
         </div>
-        <div class="flag-line">
-            <div class="dot"></div>
-            <span>ቪዛ · ሥራ · ትምህርት · ቋንቋ · ኑሮ · ጃፓን</span>
-            <div class="dot"></div>
+        <div class="hero-stats">
+            <div class="hs"><span class="hs-num">20+</span><span class="hs-label">People Helped</span></div>
+            <div class="hs"><span class="hs-num">5★</span><span class="hs-label">Rating</span></div>
+            <div class="hs"><span class="hs-num">🇯🇵</span><span class="hs-label">Based in Japan</span></div>
         </div>
+    </div>
+    <div class="scroll-hint">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
     </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
     <div class="container">
-        <div class="about-grid">
-            <div class="about-avatar">🇯🇵</div>
+        <div class="about-wrap">
+            <div class="about-img-wrap">
+                <img
+                    class="about-img"
+                    src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80"
+                    alt="Japan street"
+                    loading="lazy"
+                >
+                <div class="about-img-badge">
+                    <div class="aib-dot"></div>
+                    <div class="aib-text">🇯🇵 ጃፓን ውስጥ ይኖራሉ · Live in Japan</div>
+                </div>
+            </div>
             <div class="about-text">
+                <div class="chip">ABOUT · ስለ ኛ</div>
                 <h2>እንኳን ደህና መጣችሁ</h2>
-                <div class="stats">
+                <div class="about-stats">
                     <div class="stat">
-                        <div class="num">20+</div>
-                        <div class="lbl">የታገዙ ሰዎች<br>Helped</div>
+                        <div class="n">20+</div>
+                        <div class="l">የታገዙ ሰዎች<br>People Helped</div>
                     </div>
+                    <div class="stat-divider"></div>
                     <div class="stat">
-                        <div class="num">5★</div>
-                        <div class="lbl">ደረጃ<br>Rating</div>
+                        <div class="n">5★</div>
+                        <div class="l">ደረጃ<br>Rating</div>
                     </div>
+                    <div class="stat-divider"></div>
                     <div class="stat">
-                        <div class="num">🇯🇵</div>
-                        <div class="lbl">ጃፓን ውስጥ<br>Based in Japan</div>
+                        <div class="n">🇯🇵</div>
+                        <div class="l">ጃፓን ውስጥ<br>Based in Japan</div>
                     </div>
                 </div>
             </div>
@@ -429,50 +528,64 @@
 <!-- PACKAGES -->
 <section id="packages">
     <div class="container">
-        <div class="sec-label">PACKAGES · ጥቅሎች</div>
-        <h2 class="sec-title">የምክር ጊዜ ምረጥ</h2>
-        <p class="sec-sub">ለጥያቄህ ተስማሚ ጊዜ ምረጥ — ሁሉም ቀጥታ ምክር ያካትታሉ</p>
-
+        <div class="center">
+            <div class="chip">PACKAGES · ጥቅሎች</div>
+            <h2 class="section-title">የምክር ጊዜ ምረጥ</h2>
+            <p class="section-sub">ለጥያቄህ ተስማሚ ጊዜ ምረጥ — ሁሉም ቀጥታ ምክር ያካትታሉ</p>
+        </div>
         <div class="pkg-grid">
             <!-- 40 min -->
-            <div class="pkg-card" onclick="pickPackage('40min','40 ደቂቃ / 40 Minutes',5000)">
-                <div class="pkg-dur">40 ደቂቃ · 40 Minutes</div>
-                <div class="pkg-price">5,000 <span>ብር / ETB</span></div>
+            <div class="pkg" onclick="pickPkg('40min','40 ደቂቃ / 40 Minutes',5000)">
+                <div class="pkg-icon">⚡</div>
+                <div class="pkg-time">40 ደቂቃ · 40 Minutes</div>
+                <div class="pkg-price-wrap">
+                    <span class="pkg-price-num">5,000</span>
+                    <span class="pkg-price-unit">ብር / ETB</span>
+                </div>
                 <p class="pkg-desc">ፈጣን እና ቀጥተኛ ጥያቄዎች ላላቸው ተስማሚ</p>
-                <ul class="pkg-features">
+                <ul class="pkg-list">
                     <li>ቀጥታ 1-on-1 ምክር</li>
-                    <li>ሁሉም ርዕሶች ይሸፈናሉ</li>
-                    <li>Zoom / WhatsApp / TikTok Live</li>
+                    <li>ሁሉም ርዕሶች</li>
+                    <li>Zoom / WhatsApp</li>
                 </ul>
-                <button class="pkg-btn">ይምረጡ / Select</button>
+                <button class="pkg-cta">ይምረጡ / Select</button>
             </div>
 
-            <!-- 1 hour (featured) -->
-            <div class="pkg-card featured" onclick="pickPackage('1hr','1 ሰዓት / 1 Hour',6000)">
-                <div class="pkg-dur">1 ሰዓት · 1 Hour</div>
-                <div class="pkg-price">6,000 <span>ብር / ETB</span></div>
+            <!-- 1 hour FEATURED -->
+            <div class="pkg featured" onclick="pickPkg('1hr','1 ሰዓት / 1 Hour',6000)">
+                <div class="popular-badge">⭐ ምርጥ ምርጫ · Popular</div>
+                <div class="pkg-icon">🌟</div>
+                <div class="pkg-time">1 ሰዓት · 1 Hour</div>
+                <div class="pkg-price-wrap">
+                    <span class="pkg-price-num">6,000</span>
+                    <span class="pkg-price-unit">ብር / ETB</span>
+                </div>
                 <p class="pkg-desc">ሙሉ ዕቅድ ለሚፈልጉ — ቪዛ፣ ሥራ፣ ኑሮ ሁሉ</p>
-                <ul class="pkg-features">
+                <ul class="pkg-list">
                     <li>ቀጥታ 1-on-1 ምክር</li>
-                    <li>ሁሉም ርዕሶች ይሸፈናሉ</li>
-                    <li>Zoom / WhatsApp / TikTok Live</li>
+                    <li>ሁሉም ርዕሶች</li>
+                    <li>Zoom / WhatsApp</li>
                     <li>ከምክሩ በኋላ ፎሎው-አፕ</li>
                 </ul>
-                <button class="pkg-btn">ይምረጡ / Select</button>
+                <button class="pkg-cta">ይምረጡ / Select</button>
             </div>
 
             <!-- 1.5 hr -->
-            <div class="pkg-card" onclick="pickPackage('1.5hr','1:30 ሰዓት / 1.5 Hours',10000)">
-                <div class="pkg-dur">1:30 ሰዓት · 1.5 Hours</div>
-                <div class="pkg-price">10,000 <span>ብር / ETB</span></div>
+            <div class="pkg" onclick="pickPkg('1.5hr','1:30 ሰዓት / 1.5 Hours',10000)">
+                <div class="pkg-icon">🚀</div>
+                <div class="pkg-time">1:30 ሰዓት · 1.5 Hours</div>
+                <div class="pkg-price-wrap">
+                    <span class="pkg-price-num">10,000</span>
+                    <span class="pkg-price-unit">ብር / ETB</span>
+                </div>
                 <p class="pkg-desc">ጥልቅ ዕቅድ እና ሙሉ ድጋፍ ለሚፈልጉ</p>
-                <ul class="pkg-features">
+                <ul class="pkg-list">
                     <li>ቀጥታ 1-on-1 ምክር</li>
                     <li>ሙሉ ዕቅድ (Roadmap)</li>
-                    <li>Zoom / WhatsApp / TikTok Live</li>
+                    <li>Zoom / WhatsApp</li>
                     <li>ፎሎው-አፕ + ሰነዶች ፍተሻ</li>
                 </ul>
-                <button class="pkg-btn">ይምረጡ / Select</button>
+                <button class="pkg-cta">ይምረጡ / Select</button>
             </div>
         </div>
     </div>
@@ -481,115 +594,120 @@
 <!-- HOW IT WORKS -->
 <section id="how">
     <div class="container">
-        <div class="sec-label">HOW IT WORKS · እንዴት ይሰራል</div>
-        <h2 class="sec-title">3 ቀላል ደረጃዎች</h2>
-        <p class="sec-sub">ቀጥታ እና ቀላል ሂደት — ከቡኪንግ እስከ ምክሩ</p>
-
+        <div class="center">
+            <div class="chip">HOW IT WORKS · እንዴት ይሰራል</div>
+            <h2 class="section-title">3 ቀላል ደረጃዎች</h2>
+            <p class="section-sub">ቀጥታ እና ቀላል ሂደት — ከቡኪንግ እስከ ምክሩ</p>
+        </div>
         <div class="steps">
             <div class="step">
-                <div class="step-num">1</div>
-                <h3>ጥቅሉን ምረጥ<br><small style="color:var(--gray);font-weight:400;font-size:0.85em;">Choose Package</small></h3>
+                <div class="step-num-wrap">1</div>
+                <h3>ጥቅሉን ምረጥ<br><small style="color:var(--muted);font-weight:400;font-size:0.85em;">Choose Package</small></h3>
                 <p>ለሁኔታህ ተስማሚ የምክር ጊዜ ምረጥ እና ቅጹን ሙላ</p>
             </div>
             <div class="step">
-                <div class="step-num">2</div>
-                <h3>ክፍያ ፈጽም<br><small style="color:var(--gray);font-weight:400;font-size:0.85em;">Make Payment</small></h3>
+                <div class="step-num-wrap">2</div>
+                <h3>ክፍያ ፈጽም<br><small style="color:var(--muted);font-weight:400;font-size:0.85em;">Make Payment</small></h3>
                 <p>አቢሲኒያ ባንክ ወይም Wise (ለውጭ ሀገር) ቀጥታ ትራንስፈር</p>
             </div>
             <div class="step">
-                <div class="step-num">3</div>
-                <h3>ምክሩን አግኝ<br><small style="color:var(--gray);font-weight:400;font-size:0.85em;">Get Consulted</small></h3>
-                <p>ክፍያ እንደፈጸሙ ቀጠሮ እናስይዝልዎታለን</p>
+                <div class="step-num-wrap">3</div>
+                <h3>ክፍያ እንደፈጸሙ ቀጠሮ እናስይዝልዎታለን<br><small style="color:var(--muted);font-weight:400;font-size:0.85em;">Get Consulted</small></h3>
+                <p>ምክሩ ይጀምራል</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- BOOKING FORM -->
+<!-- BOOKING -->
 <section id="book">
     <div class="container">
-        <div class="sec-label">BOOK NOW · አሁን ቡክ አድርግ</div>
-        <h2 class="sec-title">ምዝገባ</h2>
-        <p class="sec-sub">ቅጹን ሞልታችሁ ክፍያ እንደፈጸማችሁ ሙሉ ዝርዝር መረጃ እንሰጣለን</p>
-
-        <div class="form-card">
-            <div class="selected-pkg-bar">
-                <div class="spb-name" id="spbName">
-                    ጥቅሉን ከላይ ምረጥ
-                    <small>Select a package above or choose below</small>
-                </div>
-                <div class="spb-price" id="spbPrice">—</div>
+        <div class="book-wrap">
+            <div class="book-info">
+                <div class="chip">BOOK NOW · አሁን ቡክ አድርግ</div>
+                <h2>ምዝገባ</h2>
+                <p>ቅጹን ሞልታችሁ ክፍያ እንደፈጸማችሁ ሙሉ ዝርዝር መረጃ እንሰጣለን</p>
+                <img
+                    class="book-info-img"
+                    src="https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=800&q=80"
+                    alt="Tokyo Tower"
+                    loading="lazy"
+                >
             </div>
 
-            <form id="bookingForm" onsubmit="handleSubmit(event)">
-                <div class="form-group">
-                    <label>ሙሉ ስም / Full Name *</label>
-                    <input type="text" id="fname" placeholder="ሙሉ ስምህን አስገባ" required>
+            <div class="form-card">
+                <div class="spbar">
+                    <div class="spbar-name" id="spbName">
+                        ጥቅሉን ከላይ ምረጥ
+                        <small>Select a package above or choose below</small>
+                    </div>
+                    <div class="spbar-price" id="spbPrice">—</div>
                 </div>
 
-                <div class="form-group">
-                    <label>WhatsApp ወይም Telegram ቁጥር / Phone Number *</label>
-                    <input type="tel" id="contact" placeholder="+251 9XX XXX XXX" required>
-                </div>
-
-                <div class="form-group">
-                    <label>ጥቅሉን ምረጥ / Package *</label>
-                    <select id="pkgSelect" required onchange="syncFromSelect()">
-                        <option value="">-- ጥቅሉን ምረጥ --</option>
-                        <option value="40min||5000">40 ደቂቃ (40 min) — 5,000 ብር</option>
-                        <option value="1hr||6000">1 ሰዓት (1 hr) — 6,000 ብር</option>
-                        <option value="1.5hr||10000">1:30 ሰዓት (1.5 hrs) — 10,000 ብር</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>ምክር የሚፈልጉት ስለ ምንድን ነው ?</label>
-                    <textarea id="topic" rows="3" style="resize:vertical;" placeholder="ቪዛ? ሥራ? ትምህርት? ኑሮ? ቋንቋ? — አጭር መግለጫ ፃፍ"></textarea>
-                </div>
-
-                <button type="submit" class="form-submit">
-                    ክፍያ ዝርዝር ይሰጠኝ / Get Payment Details →
-                </button>
-            </form>
+                <form id="bookForm" onsubmit="handleSubmit(event)">
+                    <div class="fgrp">
+                        <label>ሙሉ ስም / Full Name *</label>
+                        <input type="text" id="fname" placeholder="ሙሉ ስምህን አስገባ" required>
+                    </div>
+                    <div class="fgrp">
+                        <label>WhatsApp ወይም Telegram ቁጥር / Phone Number *</label>
+                        <input type="tel" id="contact" placeholder="+251 9XX XXX XXX" required>
+                    </div>
+                    <div class="fgrp">
+                        <label>ጥቅሉን ምረጥ / Package *</label>
+                        <select id="pkgSel" required onchange="syncSel()">
+                            <option value="">-- ጥቅሉን ምረጥ --</option>
+                            <option value="40min|40 ደቂቃ / 40 Minutes|5000">40 ደቂቃ (40 min) — 5,000 ብር</option>
+                            <option value="1hr|1 ሰዓት / 1 Hour|6000">1 ሰዓት (1 hr) — 6,000 ብር</option>
+                            <option value="1.5hr|1:30 ሰዓት / 1.5 Hours|10000">1:30 ሰዓት (1.5 hrs) — 10,000 ብር</option>
+                        </select>
+                    </div>
+                    <div class="fgrp">
+                        <label>ምክር የሚፈልጉት ስለ ምንድን ነው ?</label>
+                        <textarea id="topic" rows="3" placeholder="ቪዛ? ሥራ? ትምህርት? ኑሮ? ቋንቋ? — አጭር መግለጫ ፃፍ"></textarea>
+                    </div>
+                    <button type="submit" class="fsubmit">ክፍያ ዝርዝር ይሰጠኝ / Get Payment Details →</button>
+                </form>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-    <p>© 2025 Noah Japan Consultation</p>
-    <!-- UPDATE: replace @YOUR_TIKTOK below with your actual TikTok handle -->
-    <p style="margin-top:0.5rem;">ጥያቄ? TikTok <a href="#">@YOUR_TIKTOK</a> ላይ ፃፍልን</p>
+    <div class="footer-logo">Japan Consultation</div>
+    <p>© 2025 Japan Consultation Consultation · ሁሉም መብቶች የተጠበቁ ናቸው</p>
+    <p style="margin-top:0.4rem;">ጥያቄ? <a href="#">WhatsApp / Telegram +81 80-4361-1641</a></p>
 </footer>
 
-<!-- PAYMENT MODAL -->
-<div class="modal-overlay" id="modal">
+<!-- MODAL -->
+<div class="overlay" id="modal">
     <div class="modal">
-        <button class="modal-close" onclick="closeModal()">×</button>
-        <h2>🎉 ምዝገባው ተጠናቋል!</h2>
-        <p class="msub">
+        <button class="modal-x" onclick="closeModal()">×</button>
+        <div class="modal-check">🎉</div>
+        <h2>ምዝገባው ተጠናቋል!</h2>
+        <p class="modal-sub">
             ክፍያ ፈጽመው ወዲያው WhatsApp ወይም Telegram ላይ ስክሪንሾቱን ላኩልን።<br>
             📱 <strong style="color:var(--gold);">+81 80-4361-1641</strong><br>
             screenshot እንደደረሰን ቀጠሮ እናሲዝሎታለን። 🙏
         </p>
 
-        <!-- Ethiopia -->
-        <div class="pay-box">
-            <div class="pay-box-label">🇪🇹 ኢትዮጵያ · Ethiopia — Bank Transfer</div>
-            <div class="pay-row">
+        <div class="pbox">
+            <div class="pbox-title">🇪🇹 ኢትዮጵያ · Ethiopia — Bank Transfer</div>
+            <div class="prow">
                 <span class="pl">ባንክ / Bank</span>
-                <span class="pv">አቢሲኒያ ባንክ (Abyssinia Bank)</span>
+                <span class="pv">አቢሲኒያ ባንክ</span>
             </div>
-            <div class="pay-row">
+            <div class="prow">
                 <span class="pl">አካውንት / Account</span>
                 <span class="pv">205710175</span>
-                <button class="copy-btn" id="copyBtn" onclick="copyAcc()">ኮፒ</button>
+                <button class="copy-btn" id="cpyBtn" onclick="copyAcc()">ኮፒ</button>
             </div>
-            <div class="pay-row">
+            <div class="prow">
                 <span class="pl">ስም / Name</span>
                 <span class="pv">Noah</span>
             </div>
-            <div class="pay-row">
+            <div class="prow">
                 <span class="pl">መጠን / Amount</span>
                 <span class="pv big" id="modalAmt">—</span>
             </div>
@@ -597,92 +715,77 @@
 
         <div class="divider"><hr><span>ወይም · OR</span><hr></div>
 
-        <!-- Outside Ethiopia -->
-        <div class="pay-box">
-            <div class="pay-box-label">🌍 ውጭ ሀገር · Outside Ethiopia — Wise</div>
-            <div class="pay-row">
+        <div class="pbox">
+            <div class="pbox-title">🌍 ውጭ ሀገር · Outside Ethiopia — Wise</div>
+            <div class="prow">
                 <span class="pl">Wise ዝርዝር ለማግኘት</span>
-                <!-- UPDATE: replace @YOUR_TIKTOK below -->
-                <span class="pv" style="color:var(--gray);font-size:0.83rem;">WhatsApp ወይም Telegram ላይ ጻፉልን</span>
+                <span class="pv" style="color:var(--muted);font-size:0.82rem;">WhatsApp ወይም Telegram ላይ ጻፉልን</span>
             </div>
         </div>
 
-        <div class="note-box">
-            <strong>አስፈላጊ / Important:</strong><br>
-            ቴሌ ብር ወይም ባንክ screenshot ለ
+        <div class="note">
+            <strong>አስፈላጊ:</strong> ቴሌ ብር ወይም ባንክ screenshot ለ
             <strong>WhatsApp / Telegram +81 80-4361-1641</strong> ላኩ።
-            ጊዜ ተቀጥሮ ምክሩ ይጀምራል።
+            screenshot እንደደረሰን ቀጠሮ እናሲዝሎታለን።
         </div>
     </div>
 </div>
 
 <script>
-    const PACKAGES = {
-        '40min':  { label: '40 ደቂቃ / 40 Minutes',    price: 5000  },
-        '1hr':    { label: '1 ሰዓት / 1 Hour',           price: 6000  },
-        '1.5hr':  { label: '1:30 ሰዓት / 1.5 Hours',    price: 10000 },
+    // Lazy-load hero bg with zoom-in effect
+    const heroBg = document.getElementById('heroBg');
+    const img = new Image();
+    img.src = 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1920&q=80';
+    img.onload = () => {
+        heroBg.style.backgroundImage = `url('${img.src}')`;
+        setTimeout(() => heroBg.classList.add('loaded'), 100);
     };
 
-    let selected = null;
+    const PKGS = {
+        '40min':  { label: '40 ደቂቃ / 40 Minutes',  price: 5000  },
+        '1hr':    { label: '1 ሰዓት / 1 Hour',          price: 6000  },
+        '1.5hr':  { label: '1:30 ሰዓት / 1.5 Hours',   price: 10000 },
+    };
+    let sel = null;
 
-    function pickPackage(id, label, price) {
-        selected = { id, label, price };
-        document.getElementById('spbName').innerHTML =
-            label + '<small>ምርጫህ ነው · Selected</small>';
-        document.getElementById('spbPrice').textContent =
-            price.toLocaleString() + ' ብር';
-        // sync dropdown
-        const sel = document.getElementById('pkgSelect');
-        for (const opt of sel.options) {
-            if (opt.value.startsWith(id + '|')) { sel.value = opt.value; break; }
-        }
+    function pickPkg(id, label, price) {
+        sel = { id, label, price };
+        document.getElementById('spbName').innerHTML = label + '<small>ምርጫህ ነው · Selected</small>';
+        document.getElementById('spbPrice').textContent = price.toLocaleString() + ' ብር';
+        const s = document.getElementById('pkgSel');
+        for (const o of s.options) { if (o.value.startsWith(id + '|')) { s.value = o.value; break; } }
         document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function syncFromSelect() {
-        const val = document.getElementById('pkgSelect').value;
-        if (!val) return;
-        const [id] = val.split('|');
-        const pkg = PACKAGES[id];
-        if (!pkg) return;
-        selected = { id, ...pkg };
-        document.getElementById('spbName').innerHTML =
-            pkg.label + '<small>ምርጫህ ነው · Selected</small>';
-        document.getElementById('spbPrice').textContent =
-            pkg.price.toLocaleString() + ' ብር';
+    function syncSel() {
+        const v = document.getElementById('pkgSel').value;
+        if (!v) return;
+        const [id] = v.split('|');
+        const p = PKGS[id]; if (!p) return;
+        sel = { id, ...p };
+        document.getElementById('spbName').innerHTML = p.label + '<small>ምርጫህ ነው · Selected</small>';
+        document.getElementById('spbPrice').textContent = p.price.toLocaleString() + ' ብር';
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (!selected) {
-            // try to read from dropdown
-            syncFromSelect();
-            if (!selected) {
-                alert('እባክዎ ጥቅሉን ይምረጡ / Please select a package');
-                return;
-            }
-        }
-        document.getElementById('modalAmt').textContent =
-            selected.price.toLocaleString() + ' ብር (ETB)';
+        if (!sel) { syncSel(); }
+        if (!sel) { alert('እባክዎ ጥቅሉን ይምረጡ / Please select a package'); return; }
+        document.getElementById('modalAmt').textContent = sel.price.toLocaleString() + ' ብር (ETB)';
         document.getElementById('modal').classList.add('open');
     }
 
-    function closeModal() {
-        document.getElementById('modal').classList.remove('open');
-    }
+    function closeModal() { document.getElementById('modal').classList.remove('open'); }
 
     function copyAcc() {
         navigator.clipboard.writeText('205710175').then(() => {
-            const btn = document.getElementById('copyBtn');
-            btn.textContent = '✓ ተቀድቷል';
-            setTimeout(() => btn.textContent = 'ኮፒ', 2000);
+            const b = document.getElementById('cpyBtn');
+            b.textContent = '✓ ተቀድቷል';
+            setTimeout(() => b.textContent = 'ኮፒ', 2000);
         });
     }
 
-    document.getElementById('modal').addEventListener('click', function(e) {
-        if (e.target === this) closeModal();
-    });
+    document.getElementById('modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
 </script>
-
 </body>
 </html>
