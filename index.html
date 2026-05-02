@@ -19,9 +19,9 @@
             --card2: #111128;
             --border: rgba(255,255,255,0.07);
             --border2: rgba(255,255,255,0.12);
-            --text: #eeeef8;
-            --muted: #7777a0;
-            --muted2: #aaaacc;
+            --text: #f2f2fc;
+            --muted: #b0b0cc;
+            --muted2: #d0d0e8;
         }
 
         html { scroll-behavior: smooth; }
@@ -135,13 +135,16 @@
             background-clip: text;
         }
         .hero-sub-en {
-            display: block; font-size: .38em; color: rgba(255,255,255,.45);
+            display: block; font-size: .38em;
             font-weight: 400; margin-top: .75rem; font-family: 'Inter',sans-serif;
-            letter-spacing: .5px; -webkit-text-fill-color: rgba(255,255,255,.45);
+            letter-spacing: .5px;
+            background: none; -webkit-background-clip: unset;
+            -webkit-text-fill-color: rgba(255,255,255,.6);
+            background-clip: unset;
         }
         .hero-desc {
             margin: 2rem auto 0; max-width: 580px;
-            font-size: 1.05rem; line-height: 2; color: rgba(255,255,255,.68);
+            font-size: 1.05rem; line-height: 2; color: rgba(255,255,255,.88);
             font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
         }
         .hero-btns {
@@ -178,7 +181,7 @@
             width: 1px; background: rgba(255,255,255,.15);
         }
         .hstat-n { font-size: 2rem; font-weight: 900; color: var(--gold); line-height: 1; }
-        .hstat-l { font-size: .72rem; color: rgba(255,255,255,.45); margin-top: .3rem; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; }
+        .hstat-l { font-size: .72rem; color: rgba(255,255,255,.7); margin-top: .3rem; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; }
         .scroll-arrow {
             position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
             z-index: 2; animation: floatY 2.5s ease infinite;
@@ -387,7 +390,7 @@
         .fg { margin-bottom: 1.15rem; }
         .fg label {
             display: block; font-size: .8rem; font-weight: 600;
-            color: var(--muted2); margin-bottom: .45rem;
+            color: #e0e0f4; margin-bottom: .45rem;
             font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
             letter-spacing: .2px;
         }
