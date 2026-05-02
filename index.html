@@ -4,599 +4,431 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Japan Consultation | የጃፓን ምክርና ድጋፍ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --gold:#e8b84b;--gold2:#f5d060;
+            --bg:#07071a;--bg2:#0b0b22;--card:#0f0f2a;--card2:#131330;
+            --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.13);
+            --text:#ffffff;--sub:#b8c0d8;--dim:#7880a0;
+        }
+        html{scroll-behavior:smooth}
+        body{background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans Ethiopic',sans-serif;overflow-x:hidden}
 
-        :root {
-            --gold: #e8b84b;
-            --gold2: #f7d96a;
-            --gold-dim: rgba(232,184,75,0.12);
-            --red: #e63946;
-            --bg: #05050e;
-            --bg2: #09091a;
-            --card: #0d0d20;
-            --card2: #111128;
-            --border: rgba(255,255,255,0.07);
-            --border2: rgba(255,255,255,0.12);
-            --text: #f2f2fc;
-            --muted: #b0b0cc;
-            --muted2: #d0d0e8;
-        }
+        /* ANIMATIONS */
+        @keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(232,184,75,.2)}50%{box-shadow:0 0 50px rgba(232,184,75,.45)}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+        .reveal.on{opacity:1;transform:none}
 
-        html { scroll-behavior: smooth; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter','Noto Sans Ethiopic',sans-serif; overflow-x: hidden; }
+        /* NAV */
+        nav{
+            position:fixed;top:0;width:100%;z-index:300;
+            display:flex;justify-content:space-between;align-items:center;
+            padding:.9rem 2.5rem;
+            background:rgba(7,7,26,.9);backdrop-filter:blur(20px);
+            border-bottom:1px solid var(--border);
+        }
+        .logo{display:flex;align-items:center;gap:.5rem;font-weight:800;font-size:1.1rem}
+        .logo-flag{font-size:1.3rem}
+        .logo em{font-style:normal;color:var(--gold)}
+        .nav-btn{
+            background:var(--gold);color:#000;padding:.55rem 1.4rem;
+            border-radius:50px;font-weight:700;font-size:.875rem;
+            text-decoration:none;font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+            box-shadow:0 4px 18px rgba(232,184,75,.35);transition:all .25s
+        }
+        .nav-btn:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,184,75,.5)}
 
-        /* ───── ANIMATIONS ───── */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to   { opacity: 1; transform: translateY(0); }
+        /* HERO */
+        .hero{
+            min-height:100vh;display:flex;align-items:center;
+            padding:7rem 2.5rem 5rem;position:relative;overflow:hidden;
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes borderPulse {
-            0%,100% { box-shadow: 0 0 24px rgba(232,184,75,.18), 0 24px 60px rgba(0,0,0,.5); }
-            50%     { box-shadow: 0 0 48px rgba(232,184,75,.35), 0 24px 60px rgba(0,0,0,.5); }
+        /* subtle grid bg */
+        .hero::before{
+            content:'';position:absolute;inset:0;
+            background-image:linear-gradient(rgba(232,184,75,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(232,184,75,.03) 1px,transparent 1px);
+            background-size:60px 60px;
         }
-        @keyframes ticker {
-            0%   { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .hero::after{
+            content:'';position:absolute;top:-200px;right:-200px;
+            width:600px;height:600px;border-radius:50%;
+            background:radial-gradient(circle,rgba(232,184,75,.07) 0%,transparent 70%);
+            pointer-events:none;
         }
-        @keyframes floatY {
-            0%,100% { transform: translateY(0px); }
-            50%     { transform: translateY(-12px); }
+        .hero-inner{
+            max-width:1100px;margin:0 auto;width:100%;
+            display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
+            position:relative;z-index:2;
         }
-        @keyframes gradShift {
-            0%   { background-position: 0% 50%; }
-            50%  { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        @media(max-width:820px){.hero-inner{grid-template-columns:1fr;gap:3rem}}
 
-        .reveal { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease; }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .hero-badge{
+            display:inline-flex;align-items:center;gap:.5rem;
+            background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.3);
+            color:var(--gold);padding:.4rem 1.1rem;border-radius:50px;
+            font-size:.78rem;font-weight:700;
+            font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+            margin-bottom:1.75rem;letter-spacing:.3px;
+        }
+        .hero h1{
+            font-size:clamp(2.2rem,4vw,3.6rem);font-weight:900;line-height:1.2;
+            font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+            margin-bottom:1.5rem;color:#fff;
+        }
+        .hero h1 .gold{color:var(--gold);text-shadow:0 0 30px rgba(232,184,75,.3)}
+        .hero-desc{
+            font-size:1.05rem;line-height:1.9;color:var(--sub);
+            font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+            margin-bottom:2.5rem;
+        }
+        .hero-desc strong{color:#fff;font-weight:600}
+        .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
+        .btn-gold{
+            background:var(--gold);color:#000;padding:.95rem 2.2rem;
+            border-radius:50px;font-weight:800;font-size:1rem;text-decoration:none;
+            font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+            box-shadow:0 6px 24px rgba(232,184,75,.4);transition:all .25s
+        }
+        .btn-gold:hover{background:var(--gold2);transform:translateY(-3px);box-shadow:0 10px 36px rgba(232,184,75,.55)}
+        .btn-line{
+            background:transparent;border:1.5px solid rgba(255,255,255,.25);
+            color:#fff;padding:.95rem 2.2rem;border-radius:50px;
+            font-weight:600;font-size:1rem;text-decoration:none;
+            font-family:'Noto Sans Ethiopic','Inter',sans-serif;transition:all .25s
+        }
+        .btn-line:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px)}
+        .hero-stats{display:flex;gap:0}
+        .hs{flex:1;text-align:center;padding:1rem .5rem;border-right:1px solid var(--border2)}
+        .hs:last-child{border-right:none}
+        .hs .n{font-size:1.8rem;font-weight:900;color:var(--gold)}
+        .hs .l{font-size:.72rem;color:var(--sub);margin-top:.2rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
 
-        /* ───── NAV ───── */
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 300;
-            padding: 1rem 2.5rem;
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(5,5,14,.8); backdrop-filter: blur(24px);
-            border-bottom: 1px solid var(--border);
+        /* HERO IMAGE SIDE */
+        .hero-img-side{position:relative;animation:fadeUp .9s .3s ease both}
+        .hero-photo{
+            width:100%;border-radius:24px;aspect-ratio:4/5;object-fit:cover;
+            display:block;box-shadow:0 32px 80px rgba(0,0,0,.6);
+            border:1px solid var(--border2);
         }
-        .logo {
-            display: flex; align-items: center; gap: .65rem;
-            font-size: 1.15rem; font-weight: 800; color: #fff;
+        .hero-badge2{
+            position:absolute;bottom:1.5rem;left:1.5rem;
+            background:rgba(7,7,26,.9);backdrop-filter:blur(14px);
+            border:1px solid var(--border2);border-radius:14px;
+            padding:.85rem 1.1rem;display:flex;align-items:center;gap:.7rem;
         }
-        .logo-dot {
-            width: 28px; height: 28px; border-radius: 50%;
-            background: radial-gradient(circle, var(--red) 30%, transparent 70%);
-            border: 2px solid rgba(230,57,70,.4);
-            flex-shrink: 0;
+        .live-dot{width:10px;height:10px;border-radius:50%;background:#2ecc71;box-shadow:0 0 10px #2ecc71;flex-shrink:0}
+        .hero-badge2 span{font-size:.82rem;font-weight:600;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+        .hero-badge3{
+            position:absolute;top:1.5rem;right:-1rem;
+            background:var(--gold);color:#000;padding:.7rem 1rem;
+            border-radius:14px;font-size:.82rem;font-weight:800;text-align:center;
+            box-shadow:0 8px 24px rgba(232,184,75,.4);
+            font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.4;
         }
-        .logo span { color: var(--gold); }
-        .nav-pill {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
-            color: #000; padding: .55rem 1.5rem; border-radius: 50px;
-            text-decoration: none; font-weight: 700; font-size: .875rem;
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
-            box-shadow: 0 4px 20px rgba(232,184,75,.3); transition: all .25s;
-        }
-        .nav-pill:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,184,75,.45); }
+        @media(max-width:820px){.hero-badge3{right:1rem}}
 
-        /* ───── HERO ───── */
-        .hero {
-            position: relative; min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center; padding: 8rem 1.5rem 5rem;
-            overflow: hidden;
+        /* TICKER */
+        .ticker{
+            background:rgba(232,184,75,.06);
+            border-top:1px solid rgba(232,184,75,.15);
+            border-bottom:1px solid rgba(232,184,75,.15);
+            overflow:hidden;padding:.85rem 0;
         }
-        .hero-img {
-            position: absolute; inset: 0;
-            background: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1920&q=80') center/cover no-repeat;
-            transform: scale(1.06); transition: transform 10s ease;
-            will-change: transform;
+        .ticker-track{display:flex;animation:ticker 22s linear infinite;width:max-content}
+        .tick{
+            display:flex;align-items:center;gap:.6rem;padding:0 2.5rem;
+            white-space:nowrap;font-size:.82rem;font-weight:600;
+            color:var(--gold);font-family:'Noto Sans Ethiopic','Inter',sans-serif;
         }
-        .hero-img.zoom { transform: scale(1); }
-        .hero-grad {
-            position: absolute; inset: 0;
-            background:
-                linear-gradient(to bottom, rgba(5,5,14,.88) 0%, rgba(5,5,14,.82) 30%, rgba(5,5,14,.88) 65%, rgba(5,5,14,1) 100%);
-        }
-        /* Japanese watermark text */
-        .hero-kanji {
-            position: absolute; right: -2rem; bottom: 6rem;
-            font-size: 18rem; font-weight: 900; color: rgba(255,255,255,.025);
-            line-height: 1; pointer-events: none; user-select: none;
-            font-family: serif; letter-spacing: -1rem;
-        }
-        .hero-content {
-            position: relative; z-index: 2; max-width: 820px; margin: 0 auto;
-            animation: fadeUp .9s ease both;
-            background: rgba(3,3,12,.75);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255,255,255,.12);
-            border-radius: 28px;
-            padding: 3rem 3.5rem;
-            box-shadow: 0 24px 80px rgba(0,0,0,.6);
-        }
-        @media (max-width: 600px) {
-            .hero-content { padding: 2rem 1.5rem; }
-        }
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: .5rem;
-            background: rgba(255,255,255,.06); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,.14);
-            color: rgba(255,255,255,.85); padding: .45rem 1.2rem; border-radius: 50px;
-            font-size: .78rem; font-weight: 600; letter-spacing: .3px;
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
-            margin-bottom: 2.25rem;
-        }
-        .hero h1 {
-            font-size: clamp(2.1rem, 5.8vw, 4.2rem);
-            font-weight: 900; line-height: 1.18; color: #fff;
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
-            text-shadow: 0 4px 40px rgba(0,0,0,.7), 0 2px 8px rgba(0,0,0,.5);
-        }
-        .gtext {
-            color: var(--gold);
-            text-shadow: 0 0 40px rgba(232,184,75,.4);
-        }
-        .hero-sub-en {
-            display: block; font-size: .38em; color: rgba(255,255,255,.65);
-            font-weight: 400; margin-top: .75rem; font-family: 'Inter',sans-serif;
-            letter-spacing: .5px;
-        }
-        .hero-desc {
-            margin: 2rem auto 0; max-width: 580px;
-            font-size: 1.05rem; line-height: 2; color: rgba(255,255,255,.95);
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
-        }
-        .hero-btns {
-            display: flex; gap: 1rem; justify-content: center;
-            flex-wrap: wrap; margin-top: 2.75rem;
-        }
-        .btn-main {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
-            color: #000; padding: 1rem 2.4rem; border-radius: 50px;
-            font-weight: 800; font-size: 1rem; text-decoration: none;
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
-            box-shadow: 0 6px 28px rgba(232,184,75,.4); transition: all .3s;
-        }
-        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(232,184,75,.55); }
-        .btn-ghost {
-            background: rgba(255,255,255,.07); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,.2); color: #fff;
-            padding: 1rem 2.4rem; border-radius: 50px;
-            font-weight: 600; font-size: 1rem; text-decoration: none;
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
-            transition: all .3s;
-        }
-        .btn-ghost:hover { background: rgba(255,255,255,.14); transform: translateY(-3px); }
-        .hero-stats {
-            display: flex; gap: 0; justify-content: center;
-            margin-top: 4rem; flex-wrap: wrap;
-        }
-        .hstat {
-            padding: 0 2.5rem; text-align: center; position: relative;
-        }
-        .hstat:not(:last-child)::after {
-            content: '';
-            position: absolute; right: 0; top: 10%; height: 80%;
-            width: 1px; background: rgba(255,255,255,.15);
-        }
-        .hstat-n { font-size: 2rem; font-weight: 900; color: var(--gold); line-height: 1; }
-        .hstat-l { font-size: .72rem; color: rgba(255,255,255,.7); margin-top: .3rem; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; }
-        .scroll-arrow {
-            position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-            z-index: 2; animation: floatY 2.5s ease infinite;
-            opacity: .4; cursor: pointer;
-        }
-        .scroll-arrow svg { display: block; }
+        .tick::after{content:'·';opacity:.35;margin-left:.6rem}
 
-        /* ───── TICKER ───── */
-        .ticker-wrap {
-            background: rgba(232,184,75,.07);
-            border-top: 1px solid rgba(232,184,75,.15);
-            border-bottom: 1px solid rgba(232,184,75,.15);
-            overflow: hidden; padding: .9rem 0;
+        /* SECTION */
+        section{padding:6rem 2.5rem}
+        .wrap{max-width:1060px;margin:0 auto}
+        .chip{
+            display:inline-flex;align-items:center;gap:.6rem;
+            color:var(--gold);font-size:.7rem;font-weight:700;
+            letter-spacing:2.5px;text-transform:uppercase;margin-bottom:.75rem;
         }
-        .ticker-track {
-            display: flex; gap: 0;
-            animation: ticker 20s linear infinite;
-            width: max-content;
-        }
-        .ticker-item {
-            display: flex; align-items: center; gap: .6rem;
-            padding: 0 2.5rem; white-space: nowrap;
-            font-size: .82rem; font-weight: 600; color: var(--gold);
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
-        }
-        .ticker-item .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: .4; }
+        .chip::before{content:'';width:22px;height:1.5px;background:var(--gold);flex-shrink:0}
+        .ttl{font-size:clamp(1.9rem,4vw,2.6rem);font-weight:800;line-height:1.2;font-family:'Noto Sans Ethiopic','Inter',sans-serif;margin-bottom:.75rem}
+        .sub{color:var(--sub);font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.85;font-size:.97rem}
+        .tc{text-align:center}.tc .chip{justify-content:center}.tc .chip::before{display:none}.tc .sub{max-width:480px;margin:.75rem auto 3.5rem}
 
-        /* ───── SHARED ───── */
-        section { padding: 6rem 1.5rem; }
-        .container { max-width: 1060px; margin: 0 auto; }
-        .chip {
-            display: inline-flex; align-items: center; gap: .5rem;
-            color: var(--gold); font-size: .7rem; font-weight: 700;
-            letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: .75rem;
+        /* ABOUT */
+        #about{background:var(--bg2)}
+        .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+        @media(max-width:700px){.about-grid{grid-template-columns:1fr;gap:2.5rem}}
+        .about-img-wrap{position:relative}
+        .about-img{width:100%;border-radius:20px;aspect-ratio:3/4;object-fit:cover;display:block;box-shadow:0 24px 70px rgba(0,0,0,.5);border:1px solid var(--border2)}
+        .ab-badge{
+            position:absolute;bottom:1.5rem;left:1.5rem;
+            background:rgba(7,7,26,.9);backdrop-filter:blur(14px);
+            border:1px solid var(--border2);border-radius:14px;
+            padding:.85rem 1.1rem;display:flex;align-items:center;gap:.7rem;
         }
-        .chip::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
-        .sec-title {
-            font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800;
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif; line-height: 1.2;
+        .ab-badge span{font-size:.82rem;font-weight:600;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+        .about-stats{
+            display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+            margin-top:2rem;border:1px solid var(--border2);border-radius:16px;overflow:hidden;
         }
-        .sec-sub {
-            color: var(--muted2); max-width: 460px;
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
-            line-height: 1.85; font-size: .95rem; margin-top: .75rem;
-        }
-        .tc { text-align: center; }
-        .tc .sec-sub { margin: .75rem auto 3.5rem; }
-        .tc .chip { justify-content: center; }
-        .tc .chip::before { display: none; }
+        .ast{text-align:center;padding:1.4rem .75rem;border-right:1px solid var(--border2)}
+        .ast:last-child{border-right:none}
+        .ast .n{font-size:1.9rem;font-weight:900;color:var(--gold)}
+        .ast .l{font-size:.72rem;color:var(--sub);margin-top:.3rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.5}
 
-        /* ───── ABOUT ───── */
-        #about { background: var(--bg2); }
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-        @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
-        .about-img-box { position: relative; }
-        .about-img {
-            width: 100%; border-radius: 24px; aspect-ratio: 3/4;
-            object-fit: cover; display: block;
-            box-shadow: 0 32px 80px rgba(0,0,0,.6);
+        /* PACKAGES */
+        #packages{background:var(--bg)}
+        .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
+        @media(max-width:760px){.pkg-grid{grid-template-columns:1fr}}
+        .pkg{
+            background:var(--card);border:1px solid var(--border2);
+            border-radius:22px;padding:2.25rem 2rem;
+            cursor:pointer;transition:all .3s;position:relative;overflow:hidden;
         }
-        .about-float {
-            position: absolute; bottom: 1.75rem; left: 1.75rem;
-            background: rgba(5,5,14,.88); backdrop-filter: blur(16px);
-            border: 1px solid var(--border2); border-radius: 16px;
-            padding: 1rem 1.25rem;
-            display: flex; align-items: center; gap: .8rem;
+        .pkg:hover{transform:translateY(-7px);border-color:rgba(232,184,75,.4);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+        .pkg.feat{
+            background:linear-gradient(155deg,#111132 0%,#191945 100%);
+            border-color:rgba(232,184,75,.55);
+            animation:glow 3s ease infinite;
         }
-        .af-live { width: 10px; height: 10px; border-radius: 50%; background: #2ecc71; flex-shrink: 0; box-shadow: 0 0 10px #2ecc71; }
-        .af-txt { font-size: .82rem; font-weight: 600; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; }
-        .about-corner {
-            position: absolute; top: 1.75rem; right: -1.5rem;
-            background: linear-gradient(135deg, var(--gold), var(--gold2));
-            color: #000; padding: .75rem 1.1rem; border-radius: 14px;
-            font-size: .82rem; font-weight: 800; text-align: center;
-            box-shadow: 0 8px 24px rgba(232,184,75,.35);
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
+        .pkg.feat:hover{transform:translateY(-7px)}
+        .pop{
+            position:absolute;top:0;left:50%;transform:translateX(-50%);
+            background:var(--gold);color:#000;
+            padding:.3rem 1.1rem;border-radius:0 0 12px 12px;
+            font-size:.7rem;font-weight:800;white-space:nowrap;
+            font-family:'Noto Sans Ethiopic','Inter',sans-serif;
         }
-        @media (max-width: 700px) { .about-corner { right: 1rem; } }
-        .about-stats { display: flex; gap: 0; margin-top: 2.25rem; }
-        .astat { flex: 1; text-align: center; padding: 1.25rem .5rem; border-right: 1px solid var(--border2); }
-        .astat:last-child { border-right: none; }
-        .astat .n { font-size: 2rem; font-weight: 900; color: var(--gold); }
-        .astat .l { font-size: .72rem; color: var(--muted2); margin-top: .25rem; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; line-height: 1.5; }
+        .pkg-ico{font-size:2.25rem;margin-bottom:1.1rem;display:block}
+        .pkg-t{font-size:.77rem;color:var(--gold);font-weight:700;letter-spacing:.5px;margin-bottom:.6rem}
+        .pkg-p{display:flex;align-items:baseline;gap:.35rem;margin-bottom:1rem}
+        .pkg-p .n{font-size:2.7rem;font-weight:900;color:#fff;line-height:1}
+        .pkg-p .u{font-size:.85rem;color:var(--dim)}
+        .pkg-d{font-size:.88rem;color:var(--sub);margin-bottom:1.35rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.75}
+        .pkg-list{list-style:none;margin-bottom:1.75rem}
+        .pkg-list li{
+            font-size:.85rem;color:var(--sub);padding:.48rem 0;
+            display:flex;align-items:center;gap:.6rem;
+            border-bottom:1px solid var(--border);
+            font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+        }
+        .pkg-list li:last-child{border-bottom:none}
+        .pkg-list li::before{content:'✦';color:var(--gold);font-size:.55rem;flex-shrink:0}
+        .pkg-cta{
+            width:100%;padding:.95rem;border-radius:13px;border:none;
+            cursor:pointer;font-weight:700;font-size:.9rem;
+            font-family:'Noto Sans Ethiopic','Inter',sans-serif;transition:all .25s;
+        }
+        .pkg.feat .pkg-cta{background:var(--gold);color:#000;box-shadow:0 4px 20px rgba(232,184,75,.4)}
+        .pkg:not(.feat) .pkg-cta{background:rgba(232,184,75,.08);color:var(--gold);border:1px solid rgba(232,184,75,.3)}
+        .pkg-cta:hover{opacity:.88;transform:translateY(-2px)}
 
-        /* ───── PACKAGES ───── */
-        #packages { background: var(--bg); position: relative; overflow: hidden; }
-        #packages::before {
-            content: '';
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-            width: 800px; height: 800px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(232,184,75,.04) 0%, transparent 70%);
-            pointer-events: none;
+        /* HOW */
+        #how{background:var(--bg2)}
+        .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3.5rem}
+        @media(max-width:660px){.steps{grid-template-columns:1fr}}
+        .step{
+            background:var(--card);border:1px solid var(--border2);
+            border-radius:20px;padding:2.25rem 1.75rem;text-align:center;
+            transition:all .3s;position:relative;overflow:hidden;
         }
-        .pkg-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3.5rem; }
-        @media (max-width: 740px) { .pkg-grid { grid-template-columns: 1fr; } }
-        .pkg {
-            background: var(--card); border: 1px solid var(--border2);
-            border-radius: 24px; padding: 2.25rem 2rem;
-            position: relative; cursor: pointer; transition: all .35s;
-            overflow: hidden;
+        .step:hover{transform:translateY(-5px);border-color:rgba(232,184,75,.3)}
+        .step-n{
+            width:58px;height:58px;border-radius:50%;margin:0 auto 1.4rem;
+            background:rgba(232,184,75,.1);border:1.5px solid rgba(232,184,75,.35);
+            display:flex;align-items:center;justify-content:center;
+            font-size:1.35rem;font-weight:900;color:var(--gold);
         }
-        .pkg::after {
-            content: ''; position: absolute; inset: 0; border-radius: 24px;
-            background: linear-gradient(135deg, rgba(232,184,75,.03) 0%, transparent 60%);
-            opacity: 0; transition: opacity .3s;
-        }
-        .pkg:hover { transform: translateY(-8px); border-color: rgba(232,184,75,.3); }
-        .pkg:hover::after { opacity: 1; }
-        .pkg.feat {
-            background: linear-gradient(155deg, #10102a 0%, #18183a 100%);
-            border-color: rgba(232,184,75,.55);
-            animation: borderPulse 3s ease infinite;
-            transform: scale(1.03);
-        }
-        .pkg.feat:hover { transform: scale(1.03) translateY(-8px); }
-        .pop-tag {
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--gold), var(--gold2));
-            color: #000; padding: .35rem 1.2rem;
-            border-radius: 0 0 14px 14px;
-            font-size: .7rem; font-weight: 800; white-space: nowrap;
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif; letter-spacing: .3px;
-        }
-        .pkg-emoji { font-size: 2.25rem; margin-bottom: 1.1rem; display: block; }
-        .pkg-time { font-size: .78rem; color: var(--gold); font-weight: 700; letter-spacing: .5px; margin-bottom: .6rem; }
-        .pkg-price { display: flex; align-items: baseline; gap: .4rem; margin-bottom: .25rem; }
-        .pkg-price .num { font-size: 2.8rem; font-weight: 900; color: #fff; line-height: 1; }
-        .pkg-price .unit { font-size: .85rem; color: var(--muted); }
-        .pkg-tagline { font-size: .875rem; color: var(--muted2); margin: 1rem 0 1.25rem; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; line-height: 1.75; }
-        .pkg-feats { list-style: none; margin-bottom: 2rem; }
-        .pkg-feats li {
-            font-size: .84rem; color: var(--muted2); padding: .5rem 0;
-            display: flex; align-items: center; gap: .65rem;
-            border-bottom: 1px solid var(--border);
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
-        }
-        .pkg-feats li:last-child { border-bottom: none; }
-        .pkg-feats li::before { content: '✦'; color: var(--gold); font-size: .6rem; flex-shrink: 0; }
-        .pkg-btn {
-            width: 100%; padding: .95rem; border-radius: 14px; border: none;
-            cursor: pointer; font-weight: 700; font-size: .9rem;
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif; transition: all .25s;
-        }
-        .pkg.feat .pkg-btn {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
-            color: #000; box-shadow: 0 6px 24px rgba(232,184,75,.35);
-        }
-        .pkg:not(.feat) .pkg-btn {
-            background: rgba(232,184,75,.09); color: var(--gold);
-            border: 1px solid rgba(232,184,75,.25);
-        }
-        .pkg-btn:hover { opacity: .88; transform: translateY(-2px); }
+        .step h3{font-size:1rem;font-weight:700;margin-bottom:.65rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.5;color:#fff}
+        .step p{font-size:.86rem;color:var(--sub);font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.8}
 
-        /* ───── HOW IT WORKS ───── */
-        #how { background: var(--bg2); }
-        .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 3.5rem; }
-        @media (max-width: 640px) { .steps { grid-template-columns: 1fr; } }
-        .step {
-            background: var(--card); border: 1px solid var(--border2);
-            border-radius: 20px; padding: 2.25rem 1.75rem; text-align: center;
-            transition: all .3s; position: relative; overflow: hidden;
+        /* BOOK */
+        #book{background:var(--bg)}
+        .book-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:5rem;align-items:start}
+        @media(max-width:760px){.book-grid{grid-template-columns:1fr;gap:2.5rem}}
+        .book-l h2{font-size:clamp(1.7rem,3vw,2.2rem);font-weight:800;margin-bottom:1rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;color:#fff}
+        .book-l p{color:var(--sub);font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.85;font-size:.97rem;margin-bottom:2rem}
+        .book-img{width:100%;border-radius:18px;aspect-ratio:16/10;object-fit:cover;display:block;box-shadow:0 20px 55px rgba(0,0,0,.45);border:1px solid var(--border2)}
+        .fcard{background:var(--card2);border:1px solid var(--border2);border-radius:22px;padding:2.5rem;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+        .spb{
+            background:rgba(232,184,75,.07);border:1px solid rgba(232,184,75,.2);
+            border-radius:13px;padding:1rem 1.35rem;
+            display:flex;justify-content:space-between;align-items:center;
+            margin-bottom:1.75rem;
         }
-        .step::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            opacity: 0; transition: opacity .3s;
+        .spb-l{font-weight:600;color:#fff;font-size:.9rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+        .spb-l small{display:block;color:var(--dim);font-size:.73rem;font-weight:400;margin-top:.1rem}
+        .spb-r{font-size:1.2rem;font-weight:900;color:var(--gold)}
+        .fg{margin-bottom:1.1rem}
+        .fg label{display:block;font-size:.81rem;font-weight:600;color:#d0d8f0;margin-bottom:.42rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+        .fg input,.fg select,.fg textarea{
+            width:100%;padding:.85rem 1.05rem;
+            background:rgba(255,255,255,.05);border:1.5px solid var(--border2);
+            border-radius:11px;color:#fff;font-size:.93rem;
+            font-family:'Inter','Noto Sans Ethiopic',sans-serif;transition:border-color .2s,background .2s;
+            -webkit-appearance:none;
         }
-        .step:hover { transform: translateY(-5px); border-color: rgba(232,184,75,.25); }
-        .step:hover::before { opacity: 1; }
-        .step-ring {
-            width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 1.5rem;
-            background: radial-gradient(circle, rgba(232,184,75,.15) 0%, rgba(232,184,75,.04) 100%);
-            border: 1px solid rgba(232,184,75,.35);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; font-weight: 900; color: var(--gold);
+        .fg input::placeholder,.fg textarea::placeholder{color:var(--dim)}
+        .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:rgba(232,184,75,.6);background:rgba(232,184,75,.04)}
+        .fg select option{background:#0f0f2a}
+        .fg textarea{resize:vertical}
+        .fsub{
+            width:100%;padding:1.05rem;border-radius:13px;border:none;
+            background:var(--gold);color:#000;font-size:1rem;font-weight:800;
+            cursor:pointer;font-family:'Noto Sans Ethiopic','Inter',sans-serif;
+            box-shadow:0 6px 26px rgba(232,184,75,.38);transition:all .3s;margin-top:.5rem;
         }
-        .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: .65rem; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; line-height: 1.5; }
-        .step p { font-size: .84rem; color: var(--muted2); font-family: 'Noto Sans Ethiopic','Inter',sans-serif; line-height: 1.8; }
+        .fsub:hover{background:var(--gold2);transform:translateY(-3px);box-shadow:0 12px 38px rgba(232,184,75,.52)}
 
-        /* ───── BOOKING ───── */
-        #book { background: var(--bg); }
-        .book-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 5rem; align-items: start; }
-        @media (max-width: 740px) { .book-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
-        .book-left h2 { font-size: clamp(1.7rem,3vw,2.2rem); font-weight: 800; margin-bottom: 1rem; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; }
-        .book-left p { color: var(--muted2); font-family: 'Noto Sans Ethiopic','Inter',sans-serif; line-height: 1.85; font-size: .95rem; margin-bottom: 2rem; }
-        .book-img {
-            width: 100%; border-radius: 20px; aspect-ratio: 16/10;
-            object-fit: cover; display: block;
-            box-shadow: 0 20px 60px rgba(0,0,0,.5);
+        /* FLOAT */
+        .float{
+            position:fixed;bottom:2rem;right:2rem;z-index:200;
+            background:#25D366;color:#fff;width:58px;height:58px;
+            border-radius:50%;display:flex;align-items:center;justify-content:center;
+            font-size:1.6rem;text-decoration:none;
+            box-shadow:0 6px 28px rgba(37,211,102,.5);animation:float 3s ease infinite;
+            transition:transform .3s;
         }
-        .form-card {
-            background: var(--card2); border: 1px solid var(--border2);
-            border-radius: 24px; padding: 2.5rem;
-            box-shadow: 0 24px 80px rgba(0,0,0,.4);
-        }
-        .spb {
-            background: rgba(232,184,75,.07); border: 1px solid rgba(232,184,75,.2);
-            border-radius: 14px; padding: 1.1rem 1.4rem;
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 2rem;
-        }
-        .spb-l { font-weight: 600; color: #fff; font-size: .9rem; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; }
-        .spb-l small { display: block; color: var(--muted); font-size: .74rem; font-weight: 400; margin-top: .1rem; }
-        .spb-r { font-size: 1.25rem; font-weight: 900; color: var(--gold); }
-        .fg { margin-bottom: 1.15rem; }
-        .fg label {
-            display: block; font-size: .8rem; font-weight: 600;
-            color: #e0e0f4; margin-bottom: .45rem;
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
-            letter-spacing: .2px;
-        }
-        .fg input, .fg select, .fg textarea {
-            width: 100%; padding: .85rem 1.1rem;
-            background: rgba(255,255,255,.04);
-            border: 1px solid var(--border2); border-radius: 12px;
-            color: var(--text); font-size: .93rem;
-            font-family: 'Inter','Noto Sans Ethiopic',sans-serif;
-            transition: border-color .2s, background .2s; -webkit-appearance: none;
-        }
-        .fg input:focus, .fg select:focus, .fg textarea:focus {
-            outline: none; border-color: rgba(232,184,75,.55);
-            background: rgba(232,184,75,.04);
-        }
-        .fg textarea { resize: vertical; }
-        .fg select option { background: #0d0d20; }
-        .fsub {
-            width: 100%; padding: 1.05rem; border-radius: 14px; border: none;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
-            color: #000; font-size: 1rem; font-weight: 800; cursor: pointer;
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
-            box-shadow: 0 6px 28px rgba(232,184,75,.35); transition: all .3s;
-            margin-top: .5rem;
-        }
-        .fsub:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(232,184,75,.5); }
+        .float:hover{transform:scale(1.12)!important}
 
-        /* ───── FLOATING CONTACT ───── */
-        .float-btn {
-            position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
-            background: #25D366; color: #fff;
-            width: 58px; height: 58px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            text-decoration: none; font-size: 1.6rem;
-            box-shadow: 0 6px 28px rgba(37,211,102,.45); transition: all .3s;
-            animation: floatY 3s ease infinite;
-        }
-        .float-btn:hover { transform: scale(1.12); box-shadow: 0 10px 40px rgba(37,211,102,.6); }
+        /* FOOTER */
+        footer{background:#04040f;border-top:1px solid var(--border);padding:2.75rem 2.5rem;text-align:center}
+        .flogo{font-size:1.15rem;font-weight:900;color:var(--gold);margin-bottom:.5rem}
+        footer p{color:var(--dim);font-size:.82rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif;line-height:1.8}
+        footer a{color:var(--gold);text-decoration:none}
 
-        /* ───── FOOTER ───── */
-        footer {
-            background: #03030c; border-top: 1px solid var(--border);
-            padding: 3rem 1.5rem; text-align: center;
+        /* MODAL */
+        .ov{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+        .ov.on{display:flex}
+        .modal{
+            background:var(--card2);border:1px solid var(--border2);border-radius:22px;
+            padding:2.5rem;max-width:460px;width:100%;position:relative;
+            max-height:90vh;overflow-y:auto;box-shadow:0 32px 90px rgba(0,0,0,.7);
+            animation:fadeUp .35s ease;
         }
-        .footer-logo { font-size: 1.2rem; font-weight: 900; color: var(--gold); margin-bottom: .6rem; }
-        footer p { color: var(--muted); font-size: .82rem; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; line-height: 1.8; }
-        footer a { color: var(--gold); text-decoration: none; }
+        .mx{position:absolute;top:1.15rem;right:1.15rem;background:rgba(255,255,255,.06);border:1px solid var(--border2);color:var(--sub);width:33px;height:33px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;transition:all .2s;border-style:solid}
+        .mx:hover{background:rgba(255,255,255,.12);color:#fff}
+        .m-ico{width:56px;height:56px;border-radius:50%;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.25);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.2rem}
+        .modal h2{font-size:1.35rem;font-weight:800;font-family:'Noto Sans Ethiopic','Inter',sans-serif;margin-bottom:.4rem;color:#fff}
+        .m-sub{color:var(--sub);font-size:.875rem;line-height:1.85;font-family:'Noto Sans Ethiopic','Inter',sans-serif;margin-bottom:1.75rem}
+        .pbox{background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:14px;padding:1.3rem;margin-bottom:.9rem}
+        .pbox-h{font-size:.7rem;color:var(--gold);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+        .pr{display:flex;justify-content:space-between;align-items:center;padding:.52rem 0;border-bottom:1px solid var(--border);font-size:.875rem}
+        .pr:last-child{border-bottom:none}
+        .pr .pl{color:var(--sub);font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+        .pr .pv{font-weight:600;color:#fff;font-family:'Inter',monospace}
+        .pr .pv.big{color:var(--gold);font-size:1.1rem}
+        .cpb{background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.3);color:var(--gold);padding:.2rem .65rem;border-radius:7px;font-size:.71rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
+        .cpb:hover{background:rgba(232,184,75,.2)}
+        .div{display:flex;align-items:center;gap:.75rem;margin:1rem 0}
+        .div hr{flex:1;border:none;border-top:1px solid var(--border)}
+        .div span{color:var(--dim);font-size:.75rem;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+        .mnote{background:rgba(232,184,75,.05);border:1px solid rgba(232,184,75,.15);border-radius:12px;padding:1rem 1.1rem;font-size:.84rem;color:var(--sub);line-height:1.85;font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+        .mnote strong{color:var(--gold)}
 
-        /* ───── MODAL ───── */
-        .overlay {
-            position: fixed; inset: 0;
-            background: rgba(0,0,0,.88); backdrop-filter: blur(10px);
-            z-index: 500; display: none;
-            align-items: center; justify-content: center; padding: 1rem;
-        }
-        .overlay.open { display: flex; }
-        .modal {
-            background: var(--card2); border: 1px solid var(--border2);
-            border-radius: 24px; padding: 2.5rem;
-            max-width: 460px; width: 100%; position: relative;
-            max-height: 90vh; overflow-y: auto;
-            box-shadow: 0 32px 100px rgba(0,0,0,.7), 0 0 0 1px rgba(232,184,75,.08);
-            animation: fadeUp .4s ease;
-        }
-        .mx {
-            position: absolute; top: 1.25rem; right: 1.25rem;
-            background: rgba(255,255,255,.07); border: 1px solid var(--border2);
-            color: var(--muted); width: 34px; height: 34px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-size: 1.1rem; transition: all .2s; border: none;
-        }
-        .mx:hover { background: rgba(255,255,255,.14); color: #fff; }
-        .modal-icon {
-            width: 60px; height: 60px; border-radius: 50%;
-            background: rgba(46,204,113,.1); border: 1px solid rgba(46,204,113,.25);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.6rem; margin-bottom: 1.25rem;
-        }
-        .modal h2 { font-size: 1.4rem; font-weight: 800; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; margin-bottom: .4rem; }
-        .modal-sub { color: var(--muted2); font-size: .875rem; line-height: 1.8; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; margin-bottom: 1.75rem; }
-        .pbox { background: rgba(255,255,255,.025); border: 1px solid var(--border2); border-radius: 16px; padding: 1.35rem; margin-bottom: .9rem; }
-        .pbox-h { font-size: .7rem; color: var(--gold); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; }
-        .prow { display: flex; justify-content: space-between; align-items: center; padding: .55rem 0; border-bottom: 1px solid var(--border); font-size: .875rem; }
-        .prow:last-child { border-bottom: none; }
-        .prow .pl { color: var(--muted); font-family: 'Noto Sans Ethiopic','Inter',sans-serif; }
-        .prow .pv { font-weight: 600; color: #fff; font-family: 'Inter',monospace; }
-        .prow .pv.big { color: var(--gold); font-size: 1.1rem; }
-        .cpybtn {
-            background: rgba(232,184,75,.1); border: 1px solid rgba(232,184,75,.3);
-            color: var(--gold); padding: .22rem .7rem; border-radius: 7px;
-            font-size: .71rem; cursor: pointer; font-family: 'Inter',sans-serif; transition: all .2s;
-        }
-        .cpybtn:hover { background: rgba(232,184,75,.2); }
-        .divider { display: flex; align-items: center; gap: .75rem; margin: 1rem 0; }
-        .divider hr { flex: 1; border: none; border-top: 1px solid var(--border); }
-        .divider span { color: var(--muted); font-size: .75rem; font-family: 'Noto Sans Ethiopic','Inter',sans-serif; }
-        .mnote {
-            background: rgba(232,184,75,.05); border: 1px solid rgba(232,184,75,.15);
-            border-radius: 13px; padding: 1rem 1.15rem;
-            font-size: .84rem; color: var(--muted2); line-height: 1.8;
-            font-family: 'Noto Sans Ethiopic','Inter',sans-serif;
-        }
-        .mnote strong { color: var(--gold); }
-
-        /* ───── SCROLLBAR ───── */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 5px; }
+        ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#222;border-radius:5px}
     </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-    <div class="logo">
-        <div class="logo-dot"></div>
-        <span>Japan</span>&nbsp;Consultation
-    </div>
-    <a href="#book" class="nav-pill">አሁን ቡክ አድርግ</a>
+    <div class="logo"><span class="logo-flag">🇯🇵</span> <em>Japan</em>&nbsp;Consultation</div>
+    <a href="#book" class="nav-btn">አሁን ቡክ አድርግ</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-    <div class="hero-img" id="heroBg"></div>
-    <div class="hero-grad"></div>
-    <div class="hero-kanji">日本</div>
-    <div class="hero-content">
-        <div class="hero-badge">🇯🇵 ጃፓን ውስጥ የምኖር ኢትዮጵያዊ &nbsp;·&nbsp; Ethiopian Living in Japan</div>
-        <h1>
-            ወደ ጃፓን መምጣት ለምትፈልጉ<br>
-            <span class="gtext">ሙሉ ምክር</span> እንዲሁም<br>
-            ጥያቄዎቻችሁ በሙሉ ይመለሱላችዋል።
-            <span class="hero-sub-en">Real answers from someone actually living in Japan</span>
-        </h1>
-        <p class="hero-desc">
-            ስለ ቪዛ ፤ ስራ ፤ ቋንቋ ፤ ኑሮ ፤ ማንኛውም ጥያቄያችሁ ይመለስላችዋል።<br>
-            ጃፓን እንደምንኖር ሙሉ በሙሉ ትክክለኛ መረጃ ታገኛላችሁ።
-        </p>
-        <div class="hero-btns">
-            <a href="#packages" class="btn-main">ዋጋ ይመልከቱ / View Packages</a>
-            <a href="#how" class="btn-ghost">አመልክት</a>
+    <div class="hero-inner">
+        <!-- LEFT: TEXT -->
+        <div style="animation:fadeUp .8s ease both">
+            <div class="hero-badge">🇯🇵 ጃፓን ውስጥ የምኖር ኢትዮጵያዊ · Ethiopian in Japan</div>
+            <h1>
+                ወደ ጃፓን መምጣት<br>
+                ለምትፈልጉ <span class="gold">ሙሉ ምክር</span><br>
+                እዚህ ያገኛሉ።
+            </h1>
+            <p class="hero-desc">
+                ስለ ቪዛ ፤ ስራ ፤ ቋንቋ ፤ ኑሮ ፤ ማንኛውም ጥያቄያችሁ ይመለስላችዋል።<br>
+                <strong>ጃፓን እንደምንኖር ሙሉ በሙሉ ትክክለኛ መረጃ ታገኛላችሁ።</strong>
+            </p>
+            <div class="hero-btns">
+                <a href="#packages" class="btn-gold">ዋጋ ይመልከቱ / View Packages</a>
+                <a href="#how" class="btn-line">አመልክት</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hs"><div class="n">20+</div><div class="l">People Helped</div></div>
+                <div class="hs"><div class="n">5★</div><div class="l">Rating</div></div>
+                <div class="hs"><div class="n">🇯🇵</div><div class="l">Based in Japan</div></div>
+            </div>
         </div>
-        <div class="hero-stats">
-            <div class="hstat"><div class="hstat-n">20+</div><div class="hstat-l">People Helped</div></div>
-            <div class="hstat"><div class="hstat-n">5★</div><div class="hstat-l">Rating</div></div>
-            <div class="hstat"><div class="hstat-n">🇯🕐</div><div class="hstat-l">Japan Time</div></div>
+
+        <!-- RIGHT: IMAGE -->
+        <div class="hero-img-side">
+            <img class="hero-photo"
+                src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=900&q=85"
+                alt="Tokyo at night">
+            <div class="hero-badge2">
+                <div class="live-dot"></div>
+                <span>🇯🇵 ጃፓን ውስጥ ይኖራሉ</span>
+            </div>
+            <div class="hero-badge3">Japan<br>Based 🇯🇵</div>
         </div>
-    </div>
-    <div class="scroll-arrow" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
-        <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
     </div>
 </section>
 
 <!-- TICKER -->
-<div class="ticker-wrap">
+<div class="ticker">
     <div class="ticker-track">
-        <!-- set 1 -->
-        <div class="ticker-item">🛂 ቪዛ / Visa<div class="dot"></div></div>
-        <div class="ticker-item">💼 ሥራ / Work<div class="dot"></div></div>
-        <div class="ticker-item">🗣️ ቋንቋ / Language<div class="dot"></div></div>
-        <div class="ticker-item">🏠 ቤት / Housing<div class="dot"></div></div>
-        <div class="ticker-item">📚 ትምህርት / Study<div class="dot"></div></div>
-        <div class="ticker-item">🌐 ኑሮ / Life in Japan<div class="dot"></div></div>
-        <div class="ticker-item">✈️ መጓዝ / Travel<div class="dot"></div></div>
-        <div class="ticker-item">💰 ወጪ / Cost of Living<div class="dot"></div></div>
-        <!-- set 2 (duplicate for seamless loop) -->
-        <div class="ticker-item">🛂 ቪዛ / Visa<div class="dot"></div></div>
-        <div class="ticker-item">💼 ሥራ / Work<div class="dot"></div></div>
-        <div class="ticker-item">🗣️ ቋንቋ / Language<div class="dot"></div></div>
-        <div class="ticker-item">🏠 ቤት / Housing<div class="dot"></div></div>
-        <div class="ticker-item">📚 ትምህርት / Study<div class="dot"></div></div>
-        <div class="ticker-item">🌐 ኑሮ / Life in Japan<div class="dot"></div></div>
-        <div class="ticker-item">✈️ መጓዝ / Travel<div class="dot"></div></div>
-        <div class="ticker-item">💰 ወጪ / Cost of Living<div class="dot"></div></div>
+        <div class="tick">🛂 ቪዛ / Visa</div>
+        <div class="tick">💼 ሥራ / Work</div>
+        <div class="tick">🗣️ ቋንቋ / Language</div>
+        <div class="tick">🏠 ቤት / Housing</div>
+        <div class="tick">📚 ትምህርት / Study</div>
+        <div class="tick">🌐 ኑሮ / Life in Japan</div>
+        <div class="tick">✈️ መጓዝ / Travel</div>
+        <div class="tick">💰 ወጪ / Cost of Living</div>
+        <div class="tick">🛂 ቪዛ / Visa</div>
+        <div class="tick">💼 ሥራ / Work</div>
+        <div class="tick">🗣️ ቋንቋ / Language</div>
+        <div class="tick">🏠 ቤት / Housing</div>
+        <div class="tick">📚 ትምህርት / Study</div>
+        <div class="tick">🌐 ኑሮ / Life in Japan</div>
+        <div class="tick">✈️ መጓዝ / Travel</div>
+        <div class="tick">💰 ወጪ / Cost of Living</div>
     </div>
 </div>
 
 <!-- ABOUT -->
 <section id="about">
-    <div class="container">
+    <div class="wrap">
         <div class="about-grid">
-            <div class="about-img-box reveal">
+            <div class="about-img-wrap reveal">
                 <img class="about-img"
-                    src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&q=80"
-                    alt="Shibuya Japan" loading="lazy">
-                <div class="about-float">
-                    <div class="af-live"></div>
-                    <div class="af-txt">🇯🇵 ጃፓን ውስጥ ይኖራሉ</div>
+                    src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&q=85"
+                    alt="Shibuya Tokyo" loading="lazy">
+                <div class="ab-badge">
+                    <div class="live-dot"></div>
+                    <span>🇯🇵 ጃፓን ውስጥ ይኖራሉ · Live in Japan</span>
                 </div>
-                <div class="about-corner">🇯🇵<br>Japan<br>Based</div>
             </div>
             <div class="reveal">
                 <div class="chip">ABOUT · ስለ ኛ</div>
-                <h2 class="sec-title">እንኳን ደህና<br>መጣችሁ</h2>
-                <p class="sec-sub" style="max-width:100%;">
-                    ስለ ጃፓን ሕይወት ሁሉም ጥያቄ ይመለስልዎታል —
-                    ቪዛ፣ ሥራ፣ ቋንቋ፣ ቤት ፣ ኑሮ ሁሉ።
+                <h2 class="ttl">እንኳን ደህና<br>መጣችሁ 👋</h2>
+                <p class="sub">
+                    ጃፓን ለዓመታት ኖሬ — ቪዛ ሂደት፣ ቋንቋ ማጥናት፣ ሥራ ማፈላለግ፣
+                    ቤት ማከራየት ሁሉም ነገር አልፌዋለሁ። ጥያቄያችሁ ሁሉ ቀጥታ ከልምዴ ይመለስልዎታል።
                 </p>
                 <div class="about-stats">
-                    <div class="astat"><div class="n">20+</div><div class="l">የታገዙ ሰዎች<br>Helped</div></div>
-                    <div class="astat"><div class="n">5★</div><div class="l">ደረጃ<br>Rating</div></div>
-                    <div class="astat"><div class="n">100%</div><div class="l">ትክክለኛ<br>Accurate</div></div>
+                    <div class="ast"><div class="n">20+</div><div class="l">የታገዙ ሰዎች<br>Helped</div></div>
+                    <div class="ast"><div class="n">5★</div><div class="l">ደረጃ<br>Rating</div></div>
+                    <div class="ast"><div class="n">100%</div><div class="l">ትክክለኛ<br>Accurate</div></div>
                 </div>
             </div>
         </div>
@@ -605,80 +437,80 @@
 
 <!-- PACKAGES -->
 <section id="packages">
-    <div class="container">
+    <div class="wrap">
         <div class="tc reveal">
             <div class="chip">PACKAGES · ጥቅሎች</div>
-            <h2 class="sec-title">የምክር ጊዜ ምረጥ</h2>
-            <p class="sec-sub">ለጥያቄህ ተስማሚ ጊዜ ምረጥ — ሁሉም ቀጥታ 1-on-1 ምክር ያካትታሉ</p>
+            <h2 class="ttl">የምክር ጊዜ ምረጥ</h2>
+            <p class="sub">ለጥያቄህ ተስማሚ ጊዜ ምረጥ — ሁሉም ቀጥታ 1-on-1 ምክር ያካትታሉ</p>
         </div>
         <div class="pkg-grid">
-            <div class="pkg reveal" onclick="pickPkg('40min','40 ደቂቃ / 40 Minutes',5000)">
-                <span class="pkg-emoji">⚡</span>
-                <div class="pkg-time">40 ደቂቃ · 40 MIN</div>
-                <div class="pkg-price"><span class="num">5,000</span><span class="unit">ብር / ETB</span></div>
-                <p class="pkg-tagline">ፈጣን እና ቀጥተኛ ጥያቄዎች ላላቸው</p>
-                <ul class="pkg-feats">
+            <div class="pkg reveal" onclick="pick('40min','40 ደቂቃ / 40 Minutes',5000)">
+                <span class="pkg-ico">⚡</span>
+                <div class="pkg-t">40 ደቂቃ · 40 MIN</div>
+                <div class="pkg-p"><span class="n">5,000</span><span class="u">ብር / ETB</span></div>
+                <p class="pkg-d">ፈጣን እና ቀጥተኛ ጥያቄዎች ላላቸው ተስማሚ</p>
+                <ul class="pkg-list">
                     <li>ቀጥታ 1-on-1 ምክር</li>
                     <li>ሁሉም ርዕሶች ይሸፈናሉ</li>
                     <li>Zoom / WhatsApp</li>
                 </ul>
-                <button class="pkg-btn">ይምረጡ / Select</button>
+                <button class="pkg-cta">ይምረጡ / Select</button>
             </div>
 
-            <div class="pkg feat reveal" onclick="pickPkg('1hr','1 ሰዓት / 1 Hour',6000)">
-                <div class="pop-tag">⭐ ምርጥ ምርጫ · Most Popular</div>
-                <span class="pkg-emoji" style="margin-top:1rem;">🌟</span>
-                <div class="pkg-time">1 ሰዓት · 1 HOUR</div>
-                <div class="pkg-price"><span class="num">6,000</span><span class="unit">ብር / ETB</span></div>
-                <p class="pkg-tagline">ሙሉ ዕቅድ — ቪዛ፣ ሥራ፣ ኑሮ ሁሉ</p>
-                <ul class="pkg-feats">
+            <div class="pkg feat reveal" onclick="pick('1hr','1 ሰዓት / 1 Hour',6000)">
+                <div class="pop">⭐ ምርጥ ምርጫ · Most Popular</div>
+                <span class="pkg-ico" style="margin-top:1rem">🌟</span>
+                <div class="pkg-t">1 ሰዓት · 1 HOUR</div>
+                <div class="pkg-p"><span class="n">6,000</span><span class="u">ብር / ETB</span></div>
+                <p class="pkg-d">ሙሉ ዕቅድ — ቪዛ፣ ሥራ፣ ኑሮ ሁሉ</p>
+                <ul class="pkg-list">
                     <li>ቀጥታ 1-on-1 ምክር</li>
                     <li>ሁሉም ርዕሶች ይሸፈናሉ</li>
                     <li>Zoom / WhatsApp</li>
                     <li>ከምክሩ በኋላ ፎሎው-አፕ</li>
                 </ul>
-                <button class="pkg-btn">ይምረጡ / Select</button>
+                <button class="pkg-cta">ይምረጡ / Select</button>
             </div>
 
-            <div class="pkg reveal" onclick="pickPkg('1.5hr','1:30 ሰዓት / 1.5 Hours',10000)">
-                <span class="pkg-emoji">🚀</span>
-                <div class="pkg-time">1:30 ሰዓት · 1.5 HRS</div>
-                <div class="pkg-price"><span class="num">10,000</span><span class="unit">ብር / ETB</span></div>
-                <p class="pkg-tagline">ጥልቅ ዕቅድ እና ሙሉ ድጋፍ</p>
-                <ul class="pkg-feats">
+            <div class="pkg reveal" onclick="pick('1.5hr','1:30 ሰዓት / 1.5 Hours',10000)">
+                <span class="pkg-ico">🚀</span>
+                <div class="pkg-t">1:30 ሰዓት · 1.5 HRS</div>
+                <div class="pkg-p"><span class="n">10,000</span><span class="u">ብር / ETB</span></div>
+                <p class="pkg-d">ጥልቅ ዕቅድ እና ሙሉ ድጋፍ ለሚፈልጉ</p>
+                <ul class="pkg-list">
                     <li>ቀጥታ 1-on-1 ምክር</li>
                     <li>ሙሉ Roadmap</li>
                     <li>Zoom / WhatsApp</li>
                     <li>ፎሎው-አፕ + ሰነዶች ፍተሻ</li>
                 </ul>
-                <button class="pkg-btn">ይምረጡ / Select</button>
+                <button class="pkg-cta">ይምረጡ / Select</button>
             </div>
         </div>
     </div>
 </section>
 
-<!-- HOW IT WORKS -->
+<!-- HOW -->
 <section id="how">
-    <div class="container">
+    <div class="wrap">
         <div class="tc reveal">
             <div class="chip">HOW IT WORKS · እንዴት ይሰራል</div>
-            <h2 class="sec-title">3 ቀላል ደረጃዎች</h2>
-            <p class="sec-sub">ቀጥታ እና ቀላል ሂደት — ከቡኪንግ እስከ ምክሩ</p>
+            <h2 class="ttl">3 ቀላል ደረጃዎች</h2>
+            <p class="sub">ቀጥታ እና ቀላል ሂደት — ከቡኪንግ እስከ ምክሩ</p>
         </div>
         <div class="steps">
             <div class="step reveal">
-                <div class="step-ring">1</div>
-                <h3>ጥቅሉን ምረጥ<br><small style="color:var(--muted);font-weight:400;">Choose Package</small></h3>
+                <div class="step-n">1</div>
+                <h3>ጥቅሉን ምረጥ<br><small style="color:var(--dim);font-weight:400">Choose Package</small></h3>
                 <p>ለሁኔታህ ተስማሚ የምክር ጊዜ ምረጥ እና ቅጹን ሙላ</p>
             </div>
             <div class="step reveal">
-                <div class="step-ring">2</div>
-                <h3>ክፍያ ፈጽም<br><small style="color:var(--muted);font-weight:400;">Make Payment</small></h3>
+                <div class="step-n">2</div>
+                <h3>ክፍያ ፈጽም<br><small style="color:var(--dim);font-weight:400">Make Payment</small></h3>
                 <p>አቢሲኒያ ባንክ ወይም Wise (ለውጭ ሀገር) ቀጥታ ትራንስፈር</p>
             </div>
             <div class="step reveal">
-                <div class="step-ring">3</div>
-                <h3>ቀጠሮ እናስይዝልዎታለን<br><small style="color:var(--muted);font-weight:400;">Get Consulted</small></h3>
+                <div class="step-n">3</div>
+                <h3>ቀጠሮ እናስይዝልዎታለን<br><small style="color:var(--dim);font-weight:400">Get Consulted</small></h3>
                 <p>Screenshot እንደደረሰን ቀጠሮ ተቀጥሮ ምክሩ ይጀምራል</p>
             </div>
         </div>
@@ -687,34 +519,33 @@
 
 <!-- BOOKING -->
 <section id="book">
-    <div class="container">
+    <div class="wrap">
         <div class="book-grid">
-            <div class="book-left reveal">
+            <div class="book-l reveal">
                 <div class="chip">BOOK NOW · አሁን ቡክ አድርግ</div>
                 <h2>ምዝገባ</h2>
                 <p>ቅጹን ሞልታችሁ ክፍያ እንደፈጸማችሁ ሙሉ ዝርዝር መረጃ እንሰጣለን</p>
                 <img class="book-img"
-                    src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=800&q=80"
-                    alt="Mount Fuji Japan" loading="lazy">
+                    src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=800&q=85"
+                    alt="Mount Fuji" loading="lazy">
             </div>
-
-            <div class="form-card reveal">
+            <div class="fcard reveal">
                 <div class="spb">
                     <div class="spb-l" id="spbN">ጥቅሉን ከላይ ምረጥ<small>Select a package above or choose below</small></div>
                     <div class="spb-r" id="spbP">—</div>
                 </div>
-                <form id="bform" onsubmit="handleSub(event)">
+                <form id="bform" onsubmit="sub(event)">
                     <div class="fg">
                         <label>ሙሉ ስም / Full Name *</label>
-                        <input type="text" id="fname" placeholder="ሙሉ ስምህን አስገባ" required>
+                        <input type="text" id="fn" placeholder="ሙሉ ስምህን አስገባ" required>
                     </div>
                     <div class="fg">
                         <label>WhatsApp ወይም Telegram ቁጥር *</label>
-                        <input type="tel" id="fcontact" placeholder="+251 9XX XXX XXX" required>
+                        <input type="tel" id="fc" placeholder="+251 9XX XXX XXX" required>
                     </div>
                     <div class="fg">
                         <label>ጥቅሉን ምረጥ / Package *</label>
-                        <select id="fsel" required onchange="syncSel()">
+                        <select id="fs" required onchange="syncs()">
                             <option value="">-- ጥቅሉን ምረጥ --</option>
                             <option value="40min|40 ደቂቃ / 40 Minutes|5000">40 ደቂቃ (40 min) — 5,000 ብር</option>
                             <option value="1hr|1 ሰዓት / 1 Hour|6000">1 ሰዓት (1 hr) — 6,000 ብር</option>
@@ -723,7 +554,7 @@
                     </div>
                     <div class="fg">
                         <label>ምክር የሚፈልጉት ስለ ምንድን ነው?</label>
-                        <textarea id="ftopic" rows="3" placeholder="ቪዛ? ሥራ? ትምህርት? ኑሮ? ቋንቋ? — አጭር መግለጫ ፃፍ"></textarea>
+                        <textarea id="ft" rows="3" placeholder="ቪዛ? ሥራ? ትምህርት? ኑሮ? ቋንቋ?"></textarea>
                     </div>
                     <button type="submit" class="fsub">ክፍያ ዝርዝር ይሰጠኝ / Get Payment Details →</button>
                 </form>
@@ -734,42 +565,42 @@
 
 <!-- FOOTER -->
 <footer>
-    <div class="footer-logo">Japan Consultation 🇯🇵</div>
+    <div class="flogo">Japan Consultation 🇯🇵</div>
     <p>© 2025 Japan Consultation · ሁሉም መብቶች የተጠበቁ ናቸው</p>
-    <p style="margin-top:.4rem;">ጥያቄ? <a href="https://wa.me/818043611641">WhatsApp / Telegram +81 80-4361-1641</a></p>
+    <p style="margin-top:.4rem">ጥያቄ? <a href="https://wa.me/818043611641">WhatsApp / Telegram +81 80-4361-1641</a></p>
 </footer>
 
-<!-- FLOATING WHATSAPP -->
-<a class="float-btn" href="https://wa.me/818043611641" target="_blank" title="WhatsApp / Telegram">💬</a>
+<!-- FLOATING BUTTON -->
+<a class="float" href="https://wa.me/818043611641" target="_blank">💬</a>
 
-<!-- PAYMENT MODAL -->
-<div class="overlay" id="modal">
+<!-- MODAL -->
+<div class="ov" id="modal">
     <div class="modal">
-        <button class="mx" onclick="closeModal()">×</button>
-        <div class="modal-icon">🎉</div>
+        <button class="mx" onclick="cls()">×</button>
+        <div class="m-ico">🎉</div>
         <h2>ምዝገባው ተጠናቋል!</h2>
-        <p class="modal-sub">
+        <p class="m-sub">
             ክፍያ ፈጽመው ወዲያው WhatsApp ወይም Telegram ላይ ስክሪንሾቱን ላኩልን።<br>
-            📱 <strong style="color:var(--gold);">+81 80-4361-1641</strong><br>
+            📱 <strong style="color:var(--gold)">+81 80-4361-1641</strong><br>
             screenshot እንደደረሰን ቀጠሮ እናሲዝሎታለን 🙏
         </p>
         <div class="pbox">
             <div class="pbox-h">🇪🇹 ኢትዮጵያ · Ethiopia — Bank Transfer</div>
-            <div class="prow"><span class="pl">ባንክ / Bank</span><span class="pv">አቢሲኒያ ባንክ</span></div>
-            <div class="prow">
+            <div class="pr"><span class="pl">ባንክ / Bank</span><span class="pv">አቢሲኒያ ባንክ</span></div>
+            <div class="pr">
                 <span class="pl">አካውንት / Account</span>
                 <span class="pv">205710175</span>
-                <button class="cpybtn" id="cpyb" onclick="copyAcc()">ኮፒ</button>
+                <button class="cpb" id="cpb" onclick="cp()">ኮፒ</button>
             </div>
-            <div class="prow"><span class="pl">ስም / Name</span><span class="pv">Noah</span></div>
-            <div class="prow"><span class="pl">መጠን / Amount</span><span class="pv big" id="mamt">—</span></div>
+            <div class="pr"><span class="pl">ስም / Name</span><span class="pv">Noah</span></div>
+            <div class="pr"><span class="pl">መጠን / Amount</span><span class="pv big" id="mamt">—</span></div>
         </div>
-        <div class="divider"><hr><span>ወይም · OR</span><hr></div>
+        <div class="div"><hr><span>ወይም · OR</span><hr></div>
         <div class="pbox">
             <div class="pbox-h">🌍 ውጭ ሀገር · Outside Ethiopia — Wise</div>
-            <div class="prow">
+            <div class="pr">
                 <span class="pl">Wise ዝርዝር</span>
-                <span class="pv" style="color:var(--muted);font-size:.82rem;">WhatsApp ወይም Telegram ላይ ጻፉልን</span>
+                <span class="pv" style="color:var(--dim);font-size:.82rem">WhatsApp ወይም Telegram ላይ ጻፉልን</span>
             </div>
         </div>
         <div class="mnote">
@@ -781,67 +612,53 @@
 </div>
 
 <script>
-    // Hero bg lazy load with zoom
-    const bg = document.getElementById('heroBg');
-    const img = new Image();
-    img.src = 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1920&q=80';
-    img.onload = () => {
-        bg.style.backgroundImage = `url('${img.src}')`;
-        setTimeout(() => bg.classList.add('zoom'), 50);
-    };
-
     // Scroll reveal
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('on') }), {threshold:.1});
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    // Packages
     const PKGS = {
-        '40min': { label: '40 ደቂቃ / 40 Minutes', price: 5000 },
-        '1hr':   { label: '1 ሰዓት / 1 Hour',         price: 6000 },
-        '1.5hr': { label: '1:30 ሰዓት / 1.5 Hours',  price: 10000 },
+        '40min':  {label:'40 ደቂቃ / 40 Minutes', price:5000},
+        '1hr':    {label:'1 ሰዓት / 1 Hour',        price:6000},
+        '1.5hr':  {label:'1:30 ሰዓት / 1.5 Hours', price:10000},
     };
     let sel = null;
 
-    function pickPkg(id, label, price) {
-        sel = { id, label, price };
-        document.getElementById('spbN').innerHTML = label + '<small>ምርጫህ ነው · Selected</small>';
-        document.getElementById('spbP').textContent = price.toLocaleString() + ' ብር';
-        const s = document.getElementById('fsel');
-        for (const o of s.options) { if (o.value.startsWith(id + '|')) { s.value = o.value; break; } }
-        document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
+    function pick(id,label,price){
+        sel={id,label,price};
+        document.getElementById('spbN').innerHTML=label+'<small>ምርጫህ ነው · Selected</small>';
+        document.getElementById('spbP').textContent=price.toLocaleString()+' ብር';
+        const s=document.getElementById('fs');
+        for(const o of s.options){if(o.value.startsWith(id+'|')){s.value=o.value;break}}
+        document.getElementById('book').scrollIntoView({behavior:'smooth'});
     }
 
-    function syncSel() {
-        const v = document.getElementById('fsel').value; if (!v) return;
-        const [id] = v.split('|'); const p = PKGS[id]; if (!p) return;
-        sel = { id, ...p };
-        document.getElementById('spbN').innerHTML = p.label + '<small>ምርጫህ ነው · Selected</small>';
-        document.getElementById('spbP').textContent = p.price.toLocaleString() + ' ብር';
+    function syncs(){
+        const v=document.getElementById('fs').value; if(!v)return;
+        const [id]=v.split('|'); const p=PKGS[id]; if(!p)return;
+        sel={id,...p};
+        document.getElementById('spbN').innerHTML=p.label+'<small>ምርጫህ ነው · Selected</small>';
+        document.getElementById('spbP').textContent=p.price.toLocaleString()+' ብር';
     }
 
-    function handleSub(e) {
+    function sub(e){
         e.preventDefault();
-        if (!sel) { syncSel(); }
-        if (!sel) { alert('እባክዎ ጥቅሉን ይምረጡ / Please select a package'); return; }
-        document.getElementById('mamt').textContent = sel.price.toLocaleString() + ' ብር (ETB)';
-        document.getElementById('modal').classList.add('open');
+        if(!sel){syncs()}
+        if(!sel){alert('እባክዎ ጥቅሉን ይምረጡ / Please select a package');return}
+        document.getElementById('mamt').textContent=sel.price.toLocaleString()+' ብር (ETB)';
+        document.getElementById('modal').classList.add('on');
     }
 
-    function closeModal() { document.getElementById('modal').classList.remove('open'); }
+    function cls(){document.getElementById('modal').classList.remove('on')}
 
-    function copyAcc() {
-        navigator.clipboard.writeText('205710175').then(() => {
-            const b = document.getElementById('cpyb');
-            b.textContent = '✓ ተቀድቷል';
-            setTimeout(() => b.textContent = 'ኮፒ', 2000);
+    function cp(){
+        navigator.clipboard.writeText('205710175').then(()=>{
+            const b=document.getElementById('cpb');
+            b.textContent='✓ ተቀድቷል';
+            setTimeout(()=>b.textContent='ኮፒ',2000);
         });
     }
 
-    document.getElementById('modal').addEventListener('click', e => {
-        if (e.target.id === 'modal') closeModal();
-    });
+    document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')cls()});
 </script>
 </body>
 </html>
